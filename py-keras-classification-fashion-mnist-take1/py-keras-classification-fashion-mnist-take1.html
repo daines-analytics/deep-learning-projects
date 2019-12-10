@@ -13276,6 +13276,23 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Reset the random number generators</span>
+<span class="k">def</span> <span class="nf">reset_random</span><span class="p">(</span><span class="n">seedNum</span><span class="p">):</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">notifyStatus</span><span class="p">):</span> <span class="n">email_notify</span><span class="p">(</span><span class="s2">&quot;Phase 0 Prepare Environment completed! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
@@ -13293,7 +13310,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">notifyStatus</span><span class="p">):</span> <span class="n">email_notify</span><span class="p">(</span><span class="s2">&quot;Phase 1 Load Data has begun! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -13313,7 +13330,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnist</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">fashion_mnist</span>
@@ -13350,7 +13367,7 @@ Test Shape: X=(10000, 28, 28), y=(10000,)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot first few images</span>
@@ -13398,7 +13415,7 @@ Test Shape: X=(10000, 28, 28), y=(10000,)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Not required for this iteration of the project</span>
@@ -13418,7 +13435,7 @@ Test Shape: X=(10000, 28, 28), y=(10000,)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Apply feature scaling and transformation</span>
@@ -13440,7 +13457,7 @@ Test Shape: X=(10000, 28, 28), y=(10000,)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Encode class values as integers and perform one-hot-encoding</span>
@@ -13484,7 +13501,7 @@ Test Shape: X=(10000, 28, 28), y=(10000, 10)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">notifyStatus</span><span class="p">):</span> <span class="n">email_notify</span><span class="p">(</span><span class="s2">&quot;Phase 1 Load Data completed! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -13504,7 +13521,7 @@ Test Shape: X=(10000, 28, 28), y=(10000, 10)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">notifyStatus</span><span class="p">):</span> <span class="n">email_notify</span><span class="p">(</span><span class="s2">&quot;Phase 2 Define Model has begun! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -13517,7 +13534,7 @@ Test Shape: X=(10000, 28, 28), y=(10000, 10)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the Keras model required for KerasClassifier</span>
@@ -13537,7 +13554,7 @@ Test Shape: X=(10000, 28, 28), y=(10000, 10)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Not applicable for this iteration of the project</span>
@@ -13549,20 +13566,6 @@ Test Shape: X=(10000, 28, 28), y=(10000, 10)
 <span class="c1">#             self.model.stop_training = True</span>
 
 <span class="c1"># callbacks = myCallback()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize the baseline model</span>
-<span class="n">baseline_model</span> <span class="o">=</span> <span class="n">create_default_model</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13608,12 +13611,13 @@ Test Shape: X=(10000, 28, 28), y=(10000, 10)
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">startTimeModule</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize the baseline model</span>
+<span class="n">startTimeModule</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">reset_random</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+<span class="n">baseline_model</span> <span class="o">=</span> <span class="n">create_default_model</span><span class="p">()</span>
 <span class="n">baseline_hist</span> <span class="o">=</span> <span class="n">baseline_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">default_epoch</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span>
                                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total time for performing cross-validation of the default model:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeModule</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total time for creating the baseline model:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeModule</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13632,26 +13636,26 @@ Test Shape: X=(10000, 28, 28), y=(10000, 10)
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Train on 60000 samples, validate on 10000 samples
 Epoch 1/10
-60000/60000 [==============================] - 13s 220us/sample - loss: 0.4723 - accuracy: 0.8308 - val_loss: 0.4263 - val_accuracy: 0.8441
+60000/60000 [==============================] - 13s 224us/sample - loss: 0.4723 - accuracy: 0.8308 - val_loss: 0.4263 - val_accuracy: 0.8441
 Epoch 2/10
 60000/60000 [==============================] - 12s 193us/sample - loss: 0.3563 - accuracy: 0.8687 - val_loss: 0.3670 - val_accuracy: 0.8698
 Epoch 3/10
-60000/60000 [==============================] - 12s 199us/sample - loss: 0.3193 - accuracy: 0.8816 - val_loss: 0.3512 - val_accuracy: 0.8759
+60000/60000 [==============================] - 11s 192us/sample - loss: 0.3193 - accuracy: 0.8816 - val_loss: 0.3512 - val_accuracy: 0.8759
 Epoch 4/10
-60000/60000 [==============================] - 11s 187us/sample - loss: 0.2950 - accuracy: 0.8903 - val_loss: 0.3630 - val_accuracy: 0.8741
+60000/60000 [==============================] - 12s 194us/sample - loss: 0.2950 - accuracy: 0.8903 - val_loss: 0.3630 - val_accuracy: 0.8741
 Epoch 5/10
-60000/60000 [==============================] - 11s 189us/sample - loss: 0.2783 - accuracy: 0.8960 - val_loss: 0.3353 - val_accuracy: 0.8817
+60000/60000 [==============================] - 12s 198us/sample - loss: 0.2783 - accuracy: 0.8960 - val_loss: 0.3353 - val_accuracy: 0.8817
 Epoch 6/10
-60000/60000 [==============================] - 11s 190us/sample - loss: 0.2635 - accuracy: 0.9019 - val_loss: 0.3297 - val_accuracy: 0.8853
+60000/60000 [==============================] - 12s 194us/sample - loss: 0.2635 - accuracy: 0.9019 - val_loss: 0.3297 - val_accuracy: 0.8853
 Epoch 7/10
-60000/60000 [==============================] - 11s 185us/sample - loss: 0.2490 - accuracy: 0.9065 - val_loss: 0.3491 - val_accuracy: 0.8743
+60000/60000 [==============================] - 12s 195us/sample - loss: 0.2490 - accuracy: 0.9065 - val_loss: 0.3491 - val_accuracy: 0.8743
 Epoch 8/10
-60000/60000 [==============================] - 11s 188us/sample - loss: 0.2366 - accuracy: 0.9106 - val_loss: 0.3317 - val_accuracy: 0.8841
+60000/60000 [==============================] - 12s 193us/sample - loss: 0.2366 - accuracy: 0.9106 - val_loss: 0.3317 - val_accuracy: 0.8841
 Epoch 9/10
-60000/60000 [==============================] - 11s 188us/sample - loss: 0.2272 - accuracy: 0.9155 - val_loss: 0.3323 - val_accuracy: 0.8871
+60000/60000 [==============================] - 12s 194us/sample - loss: 0.2272 - accuracy: 0.9155 - val_loss: 0.3323 - val_accuracy: 0.8871
 Epoch 10/10
-60000/60000 [==============================] - 11s 188us/sample - loss: 0.2193 - accuracy: 0.9168 - val_loss: 0.3355 - val_accuracy: 0.8900
-Total time for performing cross-validation of the default model: 0:01:55.953772
+60000/60000 [==============================] - 12s 197us/sample - loss: 0.2193 - accuracy: 0.9168 - val_loss: 0.3355 - val_accuracy: 0.8900
+Total time for creating the baseline model: 0:01:58.856650
 </pre>
 </div>
 </div>
@@ -13906,26 +13910,13 @@ None
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize the final model</span>
-<span class="n">final_model</span> <span class="o">=</span> <span class="n">create_default_model</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create the final model for evaluating the test dataset</span>
+<span class="n">startTimeModule</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 <span class="n">best_epoch</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">best_batch</span> <span class="o">=</span> <span class="n">default_batch</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
-<span class="n">final_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">best_epoch</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">best_batch</span><span class="p">,</span> 
-                <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">reset_random</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+<span class="n">final_model</span> <span class="o">=</span> <span class="n">create_default_model</span><span class="p">()</span>
+<span class="n">final_hist</span> <span class="o">=</span> <span class="n">final_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">best_epoch</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">best_batch</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total time for creating the final model:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeModule</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13944,26 +13935,14 @@ None
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Train on 60000 samples, validate on 10000 samples
 Epoch 1/3
-60000/60000 [==============================] - 13s 210us/sample - loss: 0.4541 - accuracy: 0.8360 - val_loss: 0.3958 - val_accuracy: 0.8577
+60000/60000 [==============================] - 13s 211us/sample - loss: 0.4541 - accuracy: 0.8360 - val_loss: 0.3958 - val_accuracy: 0.8577
 Epoch 2/3
-60000/60000 [==============================] - 12s 193us/sample - loss: 0.3417 - accuracy: 0.8737 - val_loss: 0.3666 - val_accuracy: 0.8714
+60000/60000 [==============================] - 11s 190us/sample - loss: 0.3417 - accuracy: 0.8737 - val_loss: 0.3666 - val_accuracy: 0.8714
 Epoch 3/3
-60000/60000 [==============================] - 11s 192us/sample - loss: 0.3091 - accuracy: 0.8858 - val_loss: 0.3442 - val_accuracy: 0.8772
+60000/60000 [==============================] - 11s 191us/sample - loss: 0.3091 - accuracy: 0.8858 - val_loss: 0.3442 - val_accuracy: 0.8772
+Total time for creating the final model: 0:00:35.915697
 </pre>
 </div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[31]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;tensorflow.python.keras.callbacks.History at 0x7fd26417e610&gt;</pre>
-</div>
-
 </div>
 
 </div>
@@ -13972,7 +13951,7 @@ Epoch 3/3
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display a summary of the final model</span>
@@ -14018,7 +13997,7 @@ None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the configuration of the final model</span>
@@ -14050,7 +14029,7 @@ None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Evaluate the Keras model on previously unseen data</span>
@@ -14085,7 +14064,7 @@ The model loss: 0.344233
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Make class predictions with the model</span>
@@ -14140,7 +14119,7 @@ Data item #19 predicted to be [0] (expected [0])
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">notifyStatus</span><span class="p">):</span> <span class="n">email_notify</span><span class="p">(</span><span class="s2">&quot;Phase 5 Finalize Model completed! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -14153,7 +14132,7 @@ Data item #19 predicted to be [0] (expected [0])
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Total time for the script:&#39;</span><span class="p">,(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeScript</span><span class="p">))</span>
@@ -14173,7 +14152,7 @@ Data item #19 predicted to be [0] (expected [0])
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Total time for the script: 0:02:41.749163
+<pre>Total time for the script: 0:02:44.058154
 </pre>
 </div>
 </div>
