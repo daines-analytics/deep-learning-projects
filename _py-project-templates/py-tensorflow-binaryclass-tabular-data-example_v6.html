@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>py-tensorflow-binary-class-structured-example</title>
+<title>py-tensorflow-binaryclass-tabular-data-example</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,7 +13077,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Binary-Classification-Deep-Learning-Model-for-[PROJECT-NAME]-Using-Keras-Version-6">Binary Classification Deep Learning Model for [PROJECT NAME] Using Keras Version 6<a class="anchor-link" href="#Binary-Classification-Deep-Learning-Model-for-[PROJECT-NAME]-Using-Keras-Version-6">&#182;</a></h1><h3 id="David-Lowe">David Lowe<a class="anchor-link" href="#David-Lowe">&#182;</a></h3><h3 id="April-9,-2020">April 9, 2020<a class="anchor-link" href="#April-9,-2020">&#182;</a></h3><p>Template Credit: Adapted from a template made available by Dr. Jason Brownlee of Machine Learning Mastery. [<a href="https://machinelearningmastery.com/">https://machinelearningmastery.com/</a>]</p>
+<h1 id="Binary-Classification-Deep-Learning-Model-for-[PROJECT-NAME]-Using-TensorFlow-Version-6">Binary Classification Deep Learning Model for [PROJECT NAME] Using TensorFlow Version 6<a class="anchor-link" href="#Binary-Classification-Deep-Learning-Model-for-[PROJECT-NAME]-Using-TensorFlow-Version-6">&#182;</a></h1><h3 id="David-Lowe">David Lowe<a class="anchor-link" href="#David-Lowe">&#182;</a></h3><h3 id="April-9,-2020">April 9, 2020<a class="anchor-link" href="#April-9,-2020">&#182;</a></h3><p>Template Credit: Adapted from a template made available by Dr. Jason Brownlee of Machine Learning Mastery. [<a href="https://machinelearningmastery.com/">https://machinelearningmastery.com/</a>]</p>
 <p>SUMMARY: The purpose of this project is to construct a predictive model using various machine learning algorithms and to document the end-to-end steps using a template. The [PROJECT NAME] dataset is a binary classification situation where we are trying to predict one of the two possible outcomes.</p>
 <p>INTRODUCTION: [Sample Paragraph - The dataset contains various measurements of breast tissue samples for cancer diagnosis. It contains measurements such as the thickness of the clump, the uniformity of cell size and shape, the marginal adhesion, and so on. Dr. William H. Wolberg of the University of Wisconsin Hospitals in Madison is the original provider of this dataset.]</p>
 <p>ANALYSIS: [Sample Paragraph - The performance of the baseline model achieved an accuracy score of 94.29% with the test dataset. After tuning the hyperparameters, the best model processed the training dataset with an accuracy score of 97.33%. Furthermore, the final model processed the test dataset with an accuracy measurement of 97.14%, which was consistent with the training result.]</p>
@@ -13086,13 +13086,13 @@ div#notebook {
 <p>Dataset ML Model: Binary classification with numerical attributes</p>
 <p>Dataset Reference: [<a href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Original%29">https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Original%29</a>]</p>
 <p>One potential source of performance benchmarks: [<a href="https://www.kaggle.com/uciml/breast-cancer-wisconsin-data">https://www.kaggle.com/uciml/breast-cancer-wisconsin-data</a>]</p>
-<p>Any deep-learning modeling project genrally can be broken down into about five major tasks:</p>
+<p>A deep-learning modeling project generally can be broken down into five major tasks:</p>
 <ol>
 <li>Prepare Environment</li>
-<li>Load Data</li>
-<li>Define and Fit Model</li>
-<li>Optimize Model</li>
-<li>Finalize Model</li>
+<li>Load and Prepare Data</li>
+<li>Define and Train Model</li>
+<li>Evaluate and Optimize Model</li>
+<li>Finalize Model and Make Predictions</li>
 </ol>
 
 </div>
@@ -13335,7 +13335,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Task-2.-Load-Data">Task 2. Load Data<a class="anchor-link" href="#Task-2.-Load-Data">&#182;</a></h1>
+<h1 id="Task-2.-Load-and-Prepare-Data">Task 2. Load and Prepare Data<a class="anchor-link" href="#Task-2.-Load-and-Prepare-Data">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -14561,7 +14561,7 @@ y_test.shape: (175,) y_test.type: &lt;class &#39;numpy.ndarray&#39;&gt;
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Task-3.-Define-and-Fit-Model">Task 3. Define and Fit Model<a class="anchor-link" href="#Task-3.-Define-and-Fit-Model">&#182;</a></h1>
+<h1 id="Task-3.-Define-and-Train-Model">Task 3. Define and Train Model<a class="anchor-link" href="#Task-3.-Define-and-Train-Model">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -14753,7 +14753,7 @@ Total time for model fitting: 0:00:03.033579
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Task-4.-Optimize-Model">Task 4. Optimize Model<a class="anchor-link" href="#Task-4.-Optimize-Model">&#182;</a></h1>
+<h1 id="Task-4.-Evaluate-and-Optimize-Model">Task 4. Evaluate and Optimize Model<a class="anchor-link" href="#Task-4.-Evaluate-and-Optimize-Model">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -16346,7 +16346,7 @@ Total time for performing grid-search of the best parameters: 0:01:23.223986
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Task-5.-Finalize-Model">Task 5. Finalize Model<a class="anchor-link" href="#Task-5.-Finalize-Model">&#182;</a></h1>
+<h1 id="Task-5.-Finalize-Model-and-Make-Predictions">Task 5. Finalize Model and Make Predictions<a class="anchor-link" href="#Task-5.-Finalize-Model-and-Make-Predictions">&#182;</a></h1>
 </div>
 </div>
 </div>
