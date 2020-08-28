@@ -13077,7 +13077,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Regression-Deep-Learning-Model-for-Boston-Housing-Using-PyTorch">Regression Deep Learning Model for Boston Housing Using PyTorch<a class="anchor-link" href="#Regression-Deep-Learning-Model-for-Boston-Housing-Using-PyTorch">&#182;</a></h1><h3 id="David-Lowe">David Lowe<a class="anchor-link" href="#David-Lowe">&#182;</a></h3><h3 id="April-14,-2020">April 14, 2020<a class="anchor-link" href="#April-14,-2020">&#182;</a></h3><p>Template Credit: Adapted from a template made available by Dr. Jason Brownlee of Machine Learning Mastery. [<a href="https://machinelearningmastery.com/">https://machinelearningmastery.com/</a>]</p>
+<h1 id="Regression-Deep-Learning-Model-for-Boston-Housing-Using-PyTorch">Regression Deep Learning Model for Boston Housing Using PyTorch<a class="anchor-link" href="#Regression-Deep-Learning-Model-for-Boston-Housing-Using-PyTorch">&#182;</a></h1><h3 id="David-Lowe">David Lowe<a class="anchor-link" href="#David-Lowe">&#182;</a></h3><h3 id="August-27,-2020">August 27, 2020<a class="anchor-link" href="#August-27,-2020">&#182;</a></h3><p>Template Credit: Adapted from a template made available by Dr. Jason Brownlee of Machine Learning Mastery. [<a href="https://machinelearningmastery.com/">https://machinelearningmastery.com/</a>]</p>
 <p>SUMMARY: The purpose of this project is to construct a predictive model using various machine learning algorithms and to document the end-to-end steps using a template. The Boston Housing dataset is a regression situation where we are trying to predict the value of a continuous variable.</p>
 <p>Additional Notes: This is a replication, with some small modifications, of Dr. Jason Brownlee's blog post, PyTorch Tutorial: How to Develop Deep Learning Models with Python (<a href="https://machinelearningmastery.com/pytorch-tutorial-develop-deep-learning-models/">https://machinelearningmastery.com/pytorch-tutorial-develop-deep-learning-models/</a>). I plan to leverage Dr. Brownlee's tutorial code and build a PyTorch-based notebook template for future uses.</p>
 <p>INTRODUCTION: The purpose of the analysis is to predict the housing values (thousand of dollars) in the suburbs of Boston by using the home sale transaction history.</p>
@@ -13173,7 +13173,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>1.4.0+cpu
+<pre>1.6.0+cpu
 </pre>
 </div>
 </div>
@@ -13210,9 +13210,11 @@ div#notebook {
 <span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">random_split</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
 <span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Linear</span>
-<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Sigmoid</span>
+<span class="c1"># from torch.nn import Sigmoid</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">ReLU</span>
 <span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">SGD</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">Adam</span>
 <span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">MSELoss</span>
 <span class="kn">from</span> <span class="nn">torch.nn.init</span> <span class="kn">import</span> <span class="n">xavier_uniform_</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -13334,11 +13336,11 @@ div#notebook {
         <span class="c1"># input to first hidden layer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hidden1</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">n_inputs</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
         <span class="n">xavier_uniform_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden1</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">act1</span> <span class="o">=</span> <span class="n">Sigmoid</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">act1</span> <span class="o">=</span> <span class="n">ReLU</span><span class="p">()</span>
         <span class="c1"># second hidden layer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hidden2</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
         <span class="n">xavier_uniform_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden2</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">act2</span> <span class="o">=</span> <span class="n">Sigmoid</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">act2</span> <span class="o">=</span> <span class="n">ReLU</span><span class="p">()</span>
         <span class="c1"># third hidden layer and output</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hidden3</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">xavier_uniform_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden3</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
@@ -13370,7 +13372,8 @@ div#notebook {
 <span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">train_dl</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
     <span class="c1"># define the optimization</span>
     <span class="n">criterion</span> <span class="o">=</span> <span class="n">MSELoss</span><span class="p">()</span>
-    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+    <span class="c1"># optimizer = SGD(model.parameters(), lr=0.01, momentum=0.9)</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
     <span class="c1"># enumerate epochs</span>
     <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
         <span class="c1"># enumerate mini batches</span>
@@ -13443,6 +13446,7 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># make a class prediction for one row of data</span>
 <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
     <span class="c1"># convert row to data</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Input Row:&#39;</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
     <span class="n">row</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">([</span><span class="n">row</span><span class="p">])</span>
     <span class="c1"># make prediction</span>
     <span class="n">yhat</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
@@ -13472,7 +13476,38 @@ div#notebook {
 <span class="c1"># evaluate the model</span>
 <span class="n">mse</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">test_dl</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MSE: </span><span class="si">%.3f</span><span class="s1">, RMSE: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mse</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)))</span>
-<span class="c1"># make a single prediction (expect class=1)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Train/Test Dataset Sizes: 339 167
+MSE: 40.522, RMSE: 6.366
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># make a single prediction (Test #1)</span>
 <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.00632</span><span class="p">,</span><span class="mf">18.00</span><span class="p">,</span><span class="mf">2.310</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5380</span><span class="p">,</span><span class="mf">6.5750</span><span class="p">,</span><span class="mf">65.20</span><span class="p">,</span><span class="mf">4.0900</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">296.0</span><span class="p">,</span><span class="mf">15.30</span><span class="p">,</span><span class="mf">396.90</span><span class="p">,</span><span class="mf">4.98</span><span class="p">]</span>
 <span class="n">yhat</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">yhat</span><span class="p">)</span>
@@ -13492,9 +13527,8 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Train/Test Dataset Sizes: 339 167
-MSE: 79.322, RMSE: 8.906
-Predicted: 22.913
+<pre>Input Row: [0.00632, 18.0, 2.31, 0, 0.538, 6.575, 65.2, 4.09, 1, 296.0, 15.3, 396.9, 4.98]
+Predicted: 28.800
 </pre>
 </div>
 </div>
@@ -13505,7 +13539,77 @@ Predicted: 22.913
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># make a single prediction (Test #2)</span>
+<span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.72580</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">8.140</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5380</span><span class="p">,</span><span class="mf">5.7270</span><span class="p">,</span><span class="mf">69.50</span><span class="p">,</span><span class="mf">3.7965</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">307.0</span><span class="p">,</span><span class="mf">21.00</span><span class="p">,</span><span class="mf">390.95</span><span class="p">,</span><span class="mf">11.28</span><span class="p">]</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">yhat</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input Row: [0.7258, 0.0, 8.14, 0, 0.538, 5.727, 69.5, 3.7965, 4, 307.0, 21.0, 390.95, 11.28]
+Predicted: 22.475
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># make a single prediction (Test #3)</span>
+<span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.02763</span><span class="p">,</span><span class="mf">75.00</span><span class="p">,</span><span class="mf">2.950</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.4280</span><span class="p">,</span><span class="mf">6.5950</span><span class="p">,</span><span class="mf">21.80</span><span class="p">,</span><span class="mf">5.4011</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">252.0</span><span class="p">,</span><span class="mf">18.30</span><span class="p">,</span><span class="mf">395.63</span><span class="p">,</span><span class="mf">4.32</span><span class="p">]</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">yhat</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input Row: [0.02763, 75.0, 2.95, 0, 0.428, 6.595, 21.8, 5.4011, 3, 252.0, 18.3, 395.63, 4.32]
+Predicted: 34.937
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Total time for the script:&#39;</span><span class="p">,(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeScript</span><span class="p">))</span>
@@ -13525,7 +13629,7 @@ Predicted: 22.913
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Total time for the script: 0:00:09.908508
+<pre>Total time for the script: 0:00:01.189936
 </pre>
 </div>
 </div>
