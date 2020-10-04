@@ -14441,6 +14441,8 @@ a.anchor-link {
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">boto3</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
@@ -14485,7 +14487,7 @@ a.anchor-link {
 <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="c1"># Set up the flag to stop sending progress emails (setting to True will send status emails!)</span>
-<span class="n">notifyStatus</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">notifyStatus</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="c1"># Set Pandas options</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_rows&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -14621,7 +14623,7 @@ TensorFlow version: 2.3.0
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 1 - Prepare Environment has begun! &quot;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 1 - Prepare Environment has begun on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -14914,49 +14916,11 @@ memory usage: 6.0+ KB
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Xy_original</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>sepal_length    0
-sepal_width     0
-petal_length    0
-petal_width     0
-specie          0
-dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of NaN in the dataframe: &#39;</span><span class="p">,</span> <span class="n">Xy_original</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Surface the features that have NaNs</span>
+<span class="n">null_counts</span> <span class="o">=</span> <span class="n">Xy_original</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">null_counts</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">null_counts</span><span class="p">[</span><span class="n">null_counts</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of NaN in the dataframe:&#39;</span><span class="p">,</span> <span class="n">null_counts</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -14976,7 +14940,7 @@ dtype: int64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Total number of NaN in the dataframe:  0
+<pre>Total number of NaN in the dataframe: 0
 </pre>
 </div>
 </div>
@@ -14993,7 +14957,7 @@ dtype: int64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Standardize the class column to the name of targetVar if required</span>
@@ -15027,7 +14991,7 @@ dtype: int64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[20]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
 
 
 
@@ -15112,7 +15076,7 @@ dtype: int64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">Xy_original</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -15158,7 +15122,7 @@ memory usage: 6.0+ KB
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">Xy_original</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -15177,7 +15141,7 @@ memory usage: 6.0+ KB
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[21]:</div>
 
 
 
@@ -15277,52 +15241,14 @@ memory usage: 6.0+ KB
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Xy_original</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>sepal_length    0
-sepal_width     0
-petal_length    0
-petal_width     0
-specie          0
-dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of NaN in the dataframe: &#39;</span><span class="p">,</span> <span class="n">Xy_original</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Surface the features that have NaNs</span>
+<span class="n">null_counts</span> <span class="o">=</span> <span class="n">Xy_original</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">null_counts</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">null_counts</span><span class="p">[</span><span class="n">null_counts</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of NaN in the dataframe:&#39;</span><span class="p">,</span> <span class="n">null_counts</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -15342,7 +15268,7 @@ dtype: int64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Total number of NaN in the dataframe:  0
+<pre>Total number of NaN in the dataframe: 0
 </pre>
 </div>
 </div>
@@ -15359,7 +15285,7 @@ dtype: int64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Use variable totCol to hold the number of columns in the dataframe</span>
@@ -15382,7 +15308,7 @@ dtype: int64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We create attribute-only and target-only datasets (X_original and y_original)</span>
@@ -15427,7 +15353,7 @@ dtype: int64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Split the data further into training and test datasets</span>
@@ -15466,10 +15392,10 @@ X_test_df.shape: (30, 4) y_test_df.shape: (30,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 1 - Prepare Environment completed! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 1 - Prepare Environment completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -15485,10 +15411,10 @@ X_test_df.shape: (30, 4) y_test_df.shape: (30,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 2 - Summarize and Visualize Data has begun! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 2 - Summarize and Visualize Data has begun on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -15499,7 +15425,7 @@ X_test_df.shape: (30, 4) y_test_df.shape: (30,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Set up the number of row and columns for visualization display. dispRow * dispCol should be &gt;= totAttr</span>
@@ -15524,7 +15450,7 @@ X_test_df.shape: (30, 4) y_test_df.shape: (30,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Histograms for each attribute</span>
@@ -15565,7 +15491,7 @@ X_test_df.shape: (30, 4) y_test_df.shape: (30,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Box and Whisker plot for each attribute</span>
@@ -15606,7 +15532,7 @@ X_test_df.shape: (30, 4) y_test_df.shape: (30,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Correlation matrix</span>
@@ -15651,10 +15577,10 @@ X_test_df.shape: (30, 4) y_test_df.shape: (30,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 2 - Summarize and Visualize Data completed! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 2 - Summarize and Visualize Data completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -15670,10 +15596,10 @@ X_test_df.shape: (30, 4) y_test_df.shape: (30,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[35]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 3 - Pre-process Data has begun! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 3 - Pre-process Data has begun on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -15689,7 +15615,7 @@ X_test_df.shape: (30, 4) y_test_df.shape: (30,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compose pipeline for the numerical and categorical features</span>
@@ -15740,7 +15666,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[35]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span><span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
@@ -15780,7 +15706,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># # Apply binning techniques with continuous data (Block #1 of 1)</span>
@@ -15806,7 +15732,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Not applicable for this iteration of the project</span>
@@ -15820,7 +15746,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># # Perform SMOTE transformation on the training data (Block #1 of 2)</span>
@@ -15837,7 +15763,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># # Perform SMOTE transformation on the training data (Block #2 of 2)</span>
@@ -15863,7 +15789,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Not applicable for this iteration of the project</span>
@@ -15877,7 +15803,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find collinear features (Block #1 of 3)</span>
@@ -15919,7 +15845,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find collinear features (Block #2 of 3)</span>
@@ -15940,7 +15866,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find collinear features (Block #3 of 3)</span>
@@ -15963,7 +15889,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Finalize the training dataset for the modeling activities</span>
@@ -16001,10 +15927,10 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 3 - Pre-process Data completed! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 3 - Pre-process Data completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -16020,10 +15946,10 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 4 - Train and Evaluate Models has begun! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 4 - Train and Evaluate Models has begun on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -16034,7 +15960,7 @@ Total number of columns in the dataframe: 4
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Perform the model search</span>
@@ -16065,14 +15991,14 @@ Total number of columns in the dataframe: 4
 val_accuracy: 0.4583333432674408
 
 Best val_accuracy So Far: 0.9583333134651184
-Total elapsed time: 00h 10m 22s
+Total elapsed time: 00h 09m 39s
 INFO:tensorflow:Oracle triggered exit
 Epoch 1/50
-8/8 [==============================] - 0s 4ms/step - loss: 1.0261 - accuracy: 0.4833
+8/8 [==============================] - 0s 2ms/step - loss: 1.0261 - accuracy: 0.4833
 Epoch 2/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.9240 - accuracy: 0.6833
 Epoch 3/50
-8/8 [==============================] - 0s 4ms/step - loss: 0.8341 - accuracy: 0.7417
+8/8 [==============================] - 0s 2ms/step - loss: 0.8341 - accuracy: 0.7417
 Epoch 4/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.7540 - accuracy: 0.8000
 Epoch 5/50
@@ -16080,11 +16006,11 @@ Epoch 5/50
 Epoch 6/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.6247 - accuracy: 0.8417
 Epoch 7/50
-8/8 [==============================] - 0s 3ms/step - loss: 0.5745 - accuracy: 0.8417
+8/8 [==============================] - 0s 2ms/step - loss: 0.5745 - accuracy: 0.8417
 Epoch 8/50
-8/8 [==============================] - 0s 3ms/step - loss: 0.5318 - accuracy: 0.8500
+8/8 [==============================] - 0s 2ms/step - loss: 0.5318 - accuracy: 0.8500
 Epoch 9/50
-8/8 [==============================] - 0s 3ms/step - loss: 0.4952 - accuracy: 0.8500
+8/8 [==============================] - 0s 2ms/step - loss: 0.4952 - accuracy: 0.8500
 Epoch 10/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.4635 - accuracy: 0.8500
 Epoch 11/50
@@ -16098,13 +16024,13 @@ Epoch 14/50
 Epoch 15/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.3573 - accuracy: 0.8667
 Epoch 16/50
-8/8 [==============================] - 0s 3ms/step - loss: 0.3421 - accuracy: 0.8750
+8/8 [==============================] - 0s 2ms/step - loss: 0.3421 - accuracy: 0.8750
 Epoch 17/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.3276 - accuracy: 0.8833
 Epoch 18/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.3139 - accuracy: 0.8917
 Epoch 19/50
-8/8 [==============================] - 0s 2ms/step - loss: 0.3013 - accuracy: 0.9000
+8/8 [==============================] - 0s 3ms/step - loss: 0.3013 - accuracy: 0.9000
 Epoch 20/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.2892 - accuracy: 0.9083
 Epoch 21/50
@@ -16158,7 +16084,7 @@ Epoch 44/50
 Epoch 45/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.1047 - accuracy: 0.9667
 Epoch 46/50
-8/8 [==============================] - 0s 2ms/step - loss: 0.1014 - accuracy: 0.9667
+8/8 [==============================] - 0s 3ms/step - loss: 0.1014 - accuracy: 0.9667
 Epoch 47/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.0984 - accuracy: 0.9667
 Epoch 48/50
@@ -16167,7 +16093,7 @@ Epoch 49/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.0927 - accuracy: 0.9667
 Epoch 50/50
 8/8 [==============================] - 0s 2ms/step - loss: 0.0903 - accuracy: 0.9667
-Model training time: 0:10:26.996996
+Model training time: 0:09:43.767879
 </pre>
 </div>
 </div>
@@ -16179,7 +16105,7 @@ Model training time: 0:10:26.996996
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Summarize the best performing model</span>
@@ -16239,7 +16165,7 @@ _________________________________________________________________
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display details about the chosen model</span>
@@ -16259,7 +16185,7 @@ _________________________________________________________________
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[51]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[49]:</div>
 
 
 
@@ -16277,10 +16203,10 @@ _________________________________________________________________
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[52]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 4 - Train and Evaluate Models completed! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 4 - Train and Evaluate Models completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -16296,10 +16222,10 @@ _________________________________________________________________
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 5 - Finalize Model and Present Analysis has begun! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 5 - Finalize Model and Present Analysis has begun on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -16310,7 +16236,7 @@ _________________________________________________________________
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[54]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[52]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Apply the same data preparation steps to the test dataset</span>
@@ -16349,7 +16275,7 @@ _________________________________________________________________
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_predictions</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -16401,10 +16327,10 @@ weighted avg       1.00      1.00      1.00        30
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[56]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[54]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s2">&quot;Task 5 - Finalize Model and Present Analysis completed! &quot;</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1"> %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Multi-Class) Task 5 - Finalize Model and Present Analysis completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -16415,7 +16341,7 @@ weighted avg       1.00      1.00      1.00        30
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[57]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Total time for the script:&#39;</span><span class="p">,(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeScript</span><span class="p">))</span>
@@ -16438,7 +16364,7 @@ weighted avg       1.00      1.00      1.00        30
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Total time for the script: 0:10:37.552905
+<pre>Total time for the script: 0:09:57.079041
 </pre>
 </div>
 </div>
