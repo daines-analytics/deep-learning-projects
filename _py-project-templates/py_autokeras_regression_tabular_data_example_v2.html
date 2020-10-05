@@ -14452,9 +14452,8 @@ a.anchor-link {
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
-<span class="c1"># from sklearn.impute import SimpleImputer</span>
-<span class="c1"># from sklearn.feature_selection import RFE</span>
 <span class="c1"># from imblearn.pipeline import Pipeline</span>
 <span class="c1"># from imblearn.over_sampling import SMOTE</span>
 <span class="c1"># from imblearn.under_sampling import RandomUnderSampler</span>
@@ -15927,12 +15926,12 @@ X_test_df.shape: (102, 13) y_test_df.shape: (102,)
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compose pipeline for the numerical and categorical features</span>
 <span class="n">numeric_columns</span> <span class="o">=</span> <span class="n">X_train_df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;int&#39;</span><span class="p">,</span><span class="s1">&#39;float&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
 <span class="n">numeric_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
-<span class="c1">#     (&#39;imputer&#39;, SimpleImputer(strategy=&#39;constant&#39;, fill_value=0)),</span>
+    <span class="p">(</span><span class="s1">&#39;imputer&#39;</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
     <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">())</span>
 <span class="p">])</span>
 <span class="n">categorical_columns</span> <span class="o">=</span> <span class="n">X_train_df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">,</span><span class="s1">&#39;category&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
 <span class="n">categorical_transformer</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
-<span class="c1">#     (&#39;imputer&#39;, SimpleImputer(strategy=&#39;constant&#39;, fill_value=&#39;NA&#39;)),</span>
+    <span class="p">(</span><span class="s1">&#39;imputer&#39;</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;NA&#39;</span><span class="p">)),</span>
     <span class="p">(</span><span class="s1">&#39;onehot&#39;</span><span class="p">,</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">))</span>
 <span class="p">])</span>
 
@@ -16090,112 +16089,12 @@ Total number of columns in the dataframe: 13
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="3.c)-Feature-Selection">3.c) Feature Selection<a class="anchor-link" href="#3.c)-Feature-Selection">&#182;</a></h3>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Not applicable for this iteration of the project</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find collinear features (Block #1 of 3)</span>
-
-<span class="c1"># def findCorrelated(corrmat, cutoff = 0.75):    </span>
-
-<span class="c1"># ### search correlation matrix and identify pairs that if removed would reduce pair-wise correlations</span>
-<span class="c1"># # args:</span>
-<span class="c1">#     # corrmat: a correlation matrix</span>
-<span class="c1">#     # cutoff: pairwise absolute correlation cutoff</span>
-<span class="c1"># # returns:</span>
-<span class="c1">#     # variables to removed</span>
-
-<span class="c1">#     if(len(corrmat) != len(corrmat.columns)) : return &#39;Correlation matrix is not square&#39;</span>
-<span class="c1">#     averageCorr = corrmat.abs().mean(axis = 1)</span>
-
-<span class="c1">#     # set lower triangle and diagonal of correlation matrix to NA</span>
-<span class="c1">#     for row in range(0, len(corrmat)):</span>
-<span class="c1">#         for col in range(0, (row+1)):</span>
-<span class="c1">#             corrmat.iloc[row, col] = None</span>
-
-<span class="c1">#     # where a pairwise correlation is greater than the cutoff value, check whether mean abs.corr of a or b is greater and cut it</span>
-<span class="c1">#     to_delete = list()</span>
-<span class="c1">#     for col in range(0, len(corrmat.columns)):</span>
-<span class="c1">#         for row in range(0, len(corrmat)):</span>
-<span class="c1">#             if(abs(corrmat.iloc[row, col]) &gt; cutoff):</span>
-<span class="c1">#                 if(averageCorr.iloc[row] &gt; averageCorr.iloc[col]): to_delete.append(row)</span>
-<span class="c1">#                 else: to_delete.append(col)</span>
-
-<span class="c1">#     to_delete = list(set(to_delete))</span>
-<span class="c1">#     return to_delete</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find collinear features (Block #2 of 3)</span>
-
-<span class="c1"># By using the calculated correlation matrix, find the collinear features</span>
-<span class="c1"># collinear = findCorrelated(correlations, cutoff = 0.75)</span>
-<span class="c1"># print(&#39;Number of attributes to be removed:&#39;, len(collinear))</span>
-<span class="c1"># dropAttributes = X_train_df.columns[collinear]</span>
-<span class="c1"># print(&#39;Columns to be removed:&#39;)</span>
-<span class="c1"># print(dropAttributes)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find collinear features (Block #3 of 3)</span>
-
-<span class="c1"># Drop the highly collinear features</span>
-<span class="c1"># X_train_df.drop(labels=dropAttributes, axis=1, inplace=True)</span>
-<span class="c1"># X_test_df.drop(labels=dropAttributes, axis=1, inplace=True)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="3.d)-Display-the-Final-Datasets-for-Model-Building">3.d) Display the Final Datasets for Model-Building<a class="anchor-link" href="#3.d)-Display-the-Final-Datasets-for-Model-Building">&#182;</a></h3>
+<h3 id="3.c)-Display-the-Final-Datasets-for-Model-Building">3.c) Display the Final Datasets for Model-Building<a class="anchor-link" href="#3.c)-Display-the-Final-Datasets-for-Model-Building">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Finalize the training dataset for the modeling activities</span>
@@ -16232,7 +16131,7 @@ Total number of columns in the dataframe: 13
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Regression) Task 3 - Pre-process Data completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -16251,7 +16150,7 @@ Total number of columns in the dataframe: 13
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Regression) Task 4 - Train and Evaluate Models has begun on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -16265,7 +16164,7 @@ Total number of columns in the dataframe: 13
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Perform the model search</span>
@@ -16292,118 +16191,114 @@ Total number of columns in the dataframe: 13
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Trial 51 Complete [00h 00m 06s]
-val_loss: 10.0038480758667
+<pre>Trial 57 Complete [00h 00m 05s]
+val_loss: 13.989147186279297
 
 Best val_loss So Far: 7.047227382659912
-Total elapsed time: 00h 06m 11s
-
-Search: Running Trial #52
-
-Hyperparameter      |Value     |Best Value So Far   
-structured_data_block_1/normalize|False     |False               
-structured_data_block_1/dense_block_1/num_layers|3         |3                   
-structured_data_block_1/dense_block_1/use_batchnorm|False     |False               
-structured_data_block_1/dense_block_1/dropout|0         |0                   
-structured_data_block_1/dense_block_1/units_0|64        |32                  
-structured_data_block_1/dense_block_1/units_1|32        |32                  
-regression_head_1/dropout|0.5       |0.5                 
-optimizer           |adam      |adam                
-learning_rate       |0.01      |0.01                
-structured_data_block_1/dense_block_1/units_2|64        |64                  
-
+Total elapsed time: 00h 07m 21s
+INFO:tensorflow:Oracle triggered exit
 Epoch 1/50
-20/20 [==============================] - 0s 20ms/step - loss: 267.9254 - root_mean_squared_error: 14.6443 - val_loss: 76.0962 - val_root_mean_squared_error: 8.7233
+26/26 [==============================] - 0s 3ms/step - loss: 222.8911 - root_mean_squared_error: 13.9233
 Epoch 2/50
-20/20 [==============================] - 0s 6ms/step - loss: 77.4634 - root_mean_squared_error: 8.8013 - val_loss: 31.3490 - val_root_mean_squared_error: 5.5990
+26/26 [==============================] - 0s 2ms/step - loss: 51.6853 - root_mean_squared_error: 7.1892
 Epoch 3/50
-20/20 [==============================] - 0s 6ms/step - loss: 43.5179 - root_mean_squared_error: 6.5968 - val_loss: 20.6812 - val_root_mean_squared_error: 4.5477
+26/26 [==============================] - 0s 2ms/step - loss: 45.4550 - root_mean_squared_error: 6.7420
 Epoch 4/50
-20/20 [==============================] - 0s 6ms/step - loss: 43.0151 - root_mean_squared_error: 6.5586 - val_loss: 18.2789 - val_root_mean_squared_error: 4.2754
+26/26 [==============================] - 0s 3ms/step - loss: 45.7526 - root_mean_squared_error: 6.7641
 Epoch 5/50
-20/20 [==============================] - 0s 6ms/step - loss: 37.6992 - root_mean_squared_error: 6.1400 - val_loss: 18.6966 - val_root_mean_squared_error: 4.3240
+26/26 [==============================] - 0s 3ms/step - loss: 34.6348 - root_mean_squared_error: 5.8851
 Epoch 6/50
-20/20 [==============================] - 0s 6ms/step - loss: 35.6487 - root_mean_squared_error: 5.9706 - val_loss: 16.4075 - val_root_mean_squared_error: 4.0506
+26/26 [==============================] - 0s 3ms/step - loss: 34.6166 - root_mean_squared_error: 5.8836
 Epoch 7/50
-20/20 [==============================] - 0s 6ms/step - loss: 41.0144 - root_mean_squared_error: 6.4042 - val_loss: 20.4896 - val_root_mean_squared_error: 4.5265
+26/26 [==============================] - 0s 3ms/step - loss: 44.5693 - root_mean_squared_error: 6.6760
 Epoch 8/50
-20/20 [==============================] - 0s 6ms/step - loss: 38.6081 - root_mean_squared_error: 6.2135 - val_loss: 16.2800 - val_root_mean_squared_error: 4.0349
+26/26 [==============================] - 0s 3ms/step - loss: 34.6411 - root_mean_squared_error: 5.8857
 Epoch 9/50
-20/20 [==============================] - 0s 6ms/step - loss: 39.0020 - root_mean_squared_error: 6.2452 - val_loss: 18.6529 - val_root_mean_squared_error: 4.3189
+26/26 [==============================] - 0s 3ms/step - loss: 35.9733 - root_mean_squared_error: 5.9978
 Epoch 10/50
-20/20 [==============================] - 0s 6ms/step - loss: 32.8748 - root_mean_squared_error: 5.7337 - val_loss: 14.8133 - val_root_mean_squared_error: 3.8488
+26/26 [==============================] - 0s 3ms/step - loss: 49.2359 - root_mean_squared_error: 7.0168
 Epoch 11/50
-20/20 [==============================] - 0s 6ms/step - loss: 37.1445 - root_mean_squared_error: 6.0946 - val_loss: 14.8193 - val_root_mean_squared_error: 3.8496
+26/26 [==============================] - 0s 3ms/step - loss: 33.3913 - root_mean_squared_error: 5.7785
 Epoch 12/50
-20/20 [==============================] - 0s 6ms/step - loss: 40.9156 - root_mean_squared_error: 6.3965 - val_loss: 15.8480 - val_root_mean_squared_error: 3.9810
+26/26 [==============================] - 0s 3ms/step - loss: 33.3989 - root_mean_squared_error: 5.7792
 Epoch 13/50
-20/20 [==============================] - 0s 6ms/step - loss: 34.2356 - root_mean_squared_error: 5.8511 - val_loss: 15.0056 - val_root_mean_squared_error: 3.8737
+26/26 [==============================] - 0s 3ms/step - loss: 36.1425 - root_mean_squared_error: 6.0119
 Epoch 14/50
-20/20 [==============================] - 0s 6ms/step - loss: 37.4028 - root_mean_squared_error: 6.1158 - val_loss: 13.1506 - val_root_mean_squared_error: 3.6264
+26/26 [==============================] - 0s 3ms/step - loss: 34.0754 - root_mean_squared_error: 5.8374
 Epoch 15/50
-20/20 [==============================] - 0s 6ms/step - loss: 42.8678 - root_mean_squared_error: 6.5474 - val_loss: 13.7973 - val_root_mean_squared_error: 3.7145
+26/26 [==============================] - 0s 3ms/step - loss: 29.2176 - root_mean_squared_error: 5.4053
 Epoch 16/50
-20/20 [==============================] - 0s 6ms/step - loss: 34.7118 - root_mean_squared_error: 5.8917 - val_loss: 13.7141 - val_root_mean_squared_error: 3.7033
+26/26 [==============================] - 0s 3ms/step - loss: 35.4064 - root_mean_squared_error: 5.9503
 Epoch 17/50
-20/20 [==============================] - 0s 6ms/step - loss: 42.4176 - root_mean_squared_error: 6.5129 - val_loss: 17.5003 - val_root_mean_squared_error: 4.1833
+26/26 [==============================] - 0s 3ms/step - loss: 37.2678 - root_mean_squared_error: 6.1047
 Epoch 18/50
-20/20 [==============================] - 0s 6ms/step - loss: 47.6293 - root_mean_squared_error: 6.9014 - val_loss: 13.1854 - val_root_mean_squared_error: 3.6312
+26/26 [==============================] - 0s 3ms/step - loss: 38.7229 - root_mean_squared_error: 6.2228
 Epoch 19/50
-20/20 [==============================] - 0s 6ms/step - loss: 35.2681 - root_mean_squared_error: 5.9387 - val_loss: 14.0194 - val_root_mean_squared_error: 3.7443
+26/26 [==============================] - 0s 3ms/step - loss: 32.9548 - root_mean_squared_error: 5.7406
 Epoch 20/50
-20/20 [==============================] - 0s 6ms/step - loss: 35.5176 - root_mean_squared_error: 5.9597 - val_loss: 15.8613 - val_root_mean_squared_error: 3.9826
+26/26 [==============================] - 0s 3ms/step - loss: 30.9834 - root_mean_squared_error: 5.5663
 Epoch 21/50
-20/20 [==============================] - 0s 6ms/step - loss: 37.5826 - root_mean_squared_error: 6.1305 - val_loss: 14.9702 - val_root_mean_squared_error: 3.8691
+26/26 [==============================] - 0s 3ms/step - loss: 35.5938 - root_mean_squared_error: 5.9661
 Epoch 22/50
-20/20 [==============================] - 0s 6ms/step - loss: 38.4896 - root_mean_squared_error: 6.2040 - val_loss: 12.5615 - val_root_mean_squared_error: 3.5442
+26/26 [==============================] - 0s 3ms/step - loss: 29.6771 - root_mean_squared_error: 5.4477
 Epoch 23/50
-20/20 [==============================] - 0s 6ms/step - loss: 29.8912 - root_mean_squared_error: 5.4673 - val_loss: 12.0065 - val_root_mean_squared_error: 3.4650
+26/26 [==============================] - 0s 3ms/step - loss: 31.0790 - root_mean_squared_error: 5.5749
 Epoch 24/50
-20/20 [==============================] - 0s 6ms/step - loss: 28.7221 - root_mean_squared_error: 5.3593 - val_loss: 13.0136 - val_root_mean_squared_error: 3.6074
+26/26 [==============================] - 0s 3ms/step - loss: 29.6210 - root_mean_squared_error: 5.4425
 Epoch 25/50
-20/20 [==============================] - 0s 6ms/step - loss: 29.7424 - root_mean_squared_error: 5.4537 - val_loss: 14.7763 - val_root_mean_squared_error: 3.8440
+26/26 [==============================] - 0s 3ms/step - loss: 32.2743 - root_mean_squared_error: 5.6810
 Epoch 26/50
-20/20 [==============================] - 0s 6ms/step - loss: 35.6946 - root_mean_squared_error: 5.9745 - val_loss: 18.1980 - val_root_mean_squared_error: 4.2659
+26/26 [==============================] - 0s 3ms/step - loss: 27.6597 - root_mean_squared_error: 5.2593
 Epoch 27/50
-20/20 [==============================] - 0s 6ms/step - loss: 32.0558 - root_mean_squared_error: 5.6618 - val_loss: 14.7299 - val_root_mean_squared_error: 3.8380
+26/26 [==============================] - 0s 3ms/step - loss: 34.1100 - root_mean_squared_error: 5.8404
 Epoch 28/50
-20/20 [==============================] - 0s 6ms/step - loss: 31.2386 - root_mean_squared_error: 5.5892 - val_loss: 17.1654 - val_root_mean_squared_error: 4.1431
+26/26 [==============================] - 0s 3ms/step - loss: 24.5714 - root_mean_squared_error: 4.9570
 Epoch 29/50
-20/20 [==============================] - 0s 6ms/step - loss: 32.9410 - root_mean_squared_error: 5.7394 - val_loss: 12.0744 - val_root_mean_squared_error: 3.4748
+26/26 [==============================] - 0s 3ms/step - loss: 27.9884 - root_mean_squared_error: 5.2904
 Epoch 30/50
-20/20 [==============================] - 0s 6ms/step - loss: 28.6741 - root_mean_squared_error: 5.3548 - val_loss: 11.7026 - val_root_mean_squared_error: 3.4209
+26/26 [==============================] - 0s 3ms/step - loss: 29.2990 - root_mean_squared_error: 5.4129
 Epoch 31/50
-20/20 [==============================] - 0s 6ms/step - loss: 35.1389 - root_mean_squared_error: 5.9278 - val_loss: 15.1449 - val_root_mean_squared_error: 3.8916
+26/26 [==============================] - 0s 3ms/step - loss: 27.4178 - root_mean_squared_error: 5.2362
 Epoch 32/50
-20/20 [==============================] - 0s 6ms/step - loss: 29.7684 - root_mean_squared_error: 5.4560 - val_loss: 11.4015 - val_root_mean_squared_error: 3.3766
+26/26 [==============================] - 0s 3ms/step - loss: 30.6934 - root_mean_squared_error: 5.5402
 Epoch 33/50
-20/20 [==============================] - 0s 6ms/step - loss: 36.1003 - root_mean_squared_error: 6.0084 - val_loss: 25.0020 - val_root_mean_squared_error: 5.0002
+26/26 [==============================] - 0s 3ms/step - loss: 28.8857 - root_mean_squared_error: 5.3745
 Epoch 34/50
-20/20 [==============================] - 0s 6ms/step - loss: 40.3984 - root_mean_squared_error: 6.3560 - val_loss: 11.1030 - val_root_mean_squared_error: 3.3321
+26/26 [==============================] - 0s 3ms/step - loss: 26.7846 - root_mean_squared_error: 5.1754
 Epoch 35/50
-20/20 [==============================] - 0s 6ms/step - loss: 29.5600 - root_mean_squared_error: 5.4369 - val_loss: 13.5725 - val_root_mean_squared_error: 3.6841
+26/26 [==============================] - 0s 3ms/step - loss: 27.9583 - root_mean_squared_error: 5.2876
 Epoch 36/50
-20/20 [==============================] - 0s 6ms/step - loss: 32.9471 - root_mean_squared_error: 5.7400 - val_loss: 11.4343 - val_root_mean_squared_error: 3.3815
+26/26 [==============================] - 0s 3ms/step - loss: 35.9156 - root_mean_squared_error: 5.9930
 Epoch 37/50
-20/20 [==============================] - 0s 6ms/step - loss: 36.5470 - root_mean_squared_error: 6.0454 - val_loss: 15.3189 - val_root_mean_squared_error: 3.9139
+26/26 [==============================] - 0s 3ms/step - loss: 27.7754 - root_mean_squared_error: 5.2702
 Epoch 38/50
-20/20 [==============================] - 0s 6ms/step - loss: 28.1882 - root_mean_squared_error: 5.3093 - val_loss: 11.1740 - val_root_mean_squared_error: 3.3428
+26/26 [==============================] - 0s 3ms/step - loss: 24.6725 - root_mean_squared_error: 4.9671
 Epoch 39/50
-20/20 [==============================] - 0s 6ms/step - loss: 26.6713 - root_mean_squared_error: 5.1644 - val_loss: 12.3419 - val_root_mean_squared_error: 3.5131
+26/26 [==============================] - 0s 2ms/step - loss: 24.1101 - root_mean_squared_error: 4.9102
 Epoch 40/50
-20/20 [==============================] - 0s 7ms/step - loss: 22.2997 - root_mean_squared_error: 4.7223 - val_loss: 11.9764 - val_root_mean_squared_error: 3.4607
+26/26 [==============================] - 0s 3ms/step - loss: 30.3082 - root_mean_squared_error: 5.5053
 Epoch 41/50
-20/20 [==============================] - 0s 6ms/step - loss: 26.7515 - root_mean_squared_error: 5.1722 - val_loss: 9.7707 - val_root_mean_squared_error: 3.1258
+26/26 [==============================] - 0s 2ms/step - loss: 22.7550 - root_mean_squared_error: 4.7702
 Epoch 42/50
-20/20 [==============================] - 0s 6ms/step - loss: 26.7027 - root_mean_squared_error: 5.1675 - val_loss: 11.3133 - val_root_mean_squared_error: 3.3635
+26/26 [==============================] - 0s 3ms/step - loss: 27.6404 - root_mean_squared_error: 5.2574
 Epoch 43/50
-20/20 [==============================] - 0s 6ms/step - loss: 25.6685 - root_mean_squared_error: 5.0664 - val_loss: 10.6089 - val_root_mean_squared_error: 3.2571
+26/26 [==============================] - 0s 3ms/step - loss: 29.3608 - root_mean_squared_error: 5.4186
 Epoch 44/50
-20/20 [==============================] - 0s 7ms/step - loss: 39.8945 - root_mean_squared_error: 6.3162 - val_loss: 12.4257 - val_root_mean_squared_error: 3.5250
+26/26 [==============================] - 0s 3ms/step - loss: 33.3498 - root_mean_squared_error: 5.7749
 Epoch 45/50
-20/20 [==============================] - 0s 6ms/step - loss: 29.7278 - root_mean_squared_error: 5.4523 - val_loss: 10.4527 - val_root_mean_squared_error: 3.2331
+26/26 [==============================] - 0s 3ms/step - loss: 26.8328 - root_mean_squared_error: 5.1800
 Epoch 46/50
- 1/20 [&gt;.............................] - ETA: 0s - loss: 24.3167 - root_mean_squared_error: 4.9312</pre>
+26/26 [==============================] - 0s 3ms/step - loss: 24.4263 - root_mean_squared_error: 4.9423
+Epoch 47/50
+26/26 [==============================] - 0s 5ms/step - loss: 23.3351 - root_mean_squared_error: 4.8306
+Epoch 48/50
+26/26 [==============================] - 0s 3ms/step - loss: 23.0873 - root_mean_squared_error: 4.8049
+Epoch 49/50
+26/26 [==============================] - 0s 3ms/step - loss: 22.3161 - root_mean_squared_error: 4.7240
+Epoch 50/50
+26/26 [==============================] - 0s 3ms/step - loss: 22.8012 - root_mean_squared_error: 4.7751
+Model training time: 0:07:28.978602
+</pre>
 </div>
 </div>
 
@@ -16411,10 +16306,10 @@ Epoch 46/50
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Summarize the best performing model</span>
@@ -16427,10 +16322,58 @@ Epoch 46/50
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Model: &#34;functional_1&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_1 (InputLayer)         [(None, 13)]              0         
+_________________________________________________________________
+multi_category_encoding (Mul (None, 13)                0         
+_________________________________________________________________
+dense (Dense)                (None, 32)                448       
+_________________________________________________________________
+re_lu (ReLU)                 (None, 32)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 32)                1056      
+_________________________________________________________________
+re_lu_1 (ReLU)               (None, 32)                0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 64)                2112      
+_________________________________________________________________
+re_lu_2 (ReLU)               (None, 64)                0         
+_________________________________________________________________
+dropout (Dropout)            (None, 64)                0         
+_________________________________________________________________
+regression_head_1 (Dense)    (None, 1)                 65        
+=================================================================
+Total params: 3,681
+Trainable params: 3,681
+Non-trainable params: 0
+_________________________________________________________________
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display details about the chosen model</span>
@@ -16442,10 +16385,33 @@ Epoch 46/50
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[45]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&#39;{&#34;class_name&#34;: &#34;Functional&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;functional_1&#34;, &#34;layers&#34;: [{&#34;class_name&#34;: &#34;InputLayer&#34;, &#34;config&#34;: {&#34;batch_input_shape&#34;: [null, 13], &#34;dtype&#34;: &#34;string&#34;, &#34;sparse&#34;: false, &#34;ragged&#34;: false, &#34;name&#34;: &#34;input_1&#34;}, &#34;name&#34;: &#34;input_1&#34;, &#34;inbound_nodes&#34;: []}, {&#34;class_name&#34;: &#34;Custom&gt;MultiCategoryEncoding&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;multi_category_encoding&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;encoding&#34;: [&#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;int&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;int&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;]}, &#34;name&#34;: &#34;multi_category_encoding&#34;, &#34;inbound_nodes&#34;: [[[&#34;input_1&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;Dense&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;dense&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;units&#34;: 32, &#34;activation&#34;: &#34;linear&#34;, &#34;use_bias&#34;: true, &#34;kernel_initializer&#34;: {&#34;class_name&#34;: &#34;GlorotUniform&#34;, &#34;config&#34;: {&#34;seed&#34;: null}}, &#34;bias_initializer&#34;: {&#34;class_name&#34;: &#34;Zeros&#34;, &#34;config&#34;: {}}, &#34;kernel_regularizer&#34;: null, &#34;bias_regularizer&#34;: null, &#34;activity_regularizer&#34;: null, &#34;kernel_constraint&#34;: null, &#34;bias_constraint&#34;: null}, &#34;name&#34;: &#34;dense&#34;, &#34;inbound_nodes&#34;: [[[&#34;multi_category_encoding&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;ReLU&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;re_lu&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;max_value&#34;: null, &#34;negative_slope&#34;: 0.0, &#34;threshold&#34;: 0.0}, &#34;name&#34;: &#34;re_lu&#34;, &#34;inbound_nodes&#34;: [[[&#34;dense&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;Dense&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;dense_1&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;units&#34;: 32, &#34;activation&#34;: &#34;linear&#34;, &#34;use_bias&#34;: true, &#34;kernel_initializer&#34;: {&#34;class_name&#34;: &#34;GlorotUniform&#34;, &#34;config&#34;: {&#34;seed&#34;: null}}, &#34;bias_initializer&#34;: {&#34;class_name&#34;: &#34;Zeros&#34;, &#34;config&#34;: {}}, &#34;kernel_regularizer&#34;: null, &#34;bias_regularizer&#34;: null, &#34;activity_regularizer&#34;: null, &#34;kernel_constraint&#34;: null, &#34;bias_constraint&#34;: null}, &#34;name&#34;: &#34;dense_1&#34;, &#34;inbound_nodes&#34;: [[[&#34;re_lu&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;ReLU&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;re_lu_1&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;max_value&#34;: null, &#34;negative_slope&#34;: 0.0, &#34;threshold&#34;: 0.0}, &#34;name&#34;: &#34;re_lu_1&#34;, &#34;inbound_nodes&#34;: [[[&#34;dense_1&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;Dense&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;dense_2&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;units&#34;: 64, &#34;activation&#34;: &#34;linear&#34;, &#34;use_bias&#34;: true, &#34;kernel_initializer&#34;: {&#34;class_name&#34;: &#34;GlorotUniform&#34;, &#34;config&#34;: {&#34;seed&#34;: null}}, &#34;bias_initializer&#34;: {&#34;class_name&#34;: &#34;Zeros&#34;, &#34;config&#34;: {}}, &#34;kernel_regularizer&#34;: null, &#34;bias_regularizer&#34;: null, &#34;activity_regularizer&#34;: null, &#34;kernel_constraint&#34;: null, &#34;bias_constraint&#34;: null}, &#34;name&#34;: &#34;dense_2&#34;, &#34;inbound_nodes&#34;: [[[&#34;re_lu_1&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;ReLU&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;re_lu_2&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;max_value&#34;: null, &#34;negative_slope&#34;: 0.0, &#34;threshold&#34;: 0.0}, &#34;name&#34;: &#34;re_lu_2&#34;, &#34;inbound_nodes&#34;: [[[&#34;dense_2&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;Dropout&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;dropout&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;rate&#34;: 0.5, &#34;noise_shape&#34;: null, &#34;seed&#34;: null}, &#34;name&#34;: &#34;dropout&#34;, &#34;inbound_nodes&#34;: [[[&#34;re_lu_2&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;Dense&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;regression_head_1&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;units&#34;: 1, &#34;activation&#34;: &#34;linear&#34;, &#34;use_bias&#34;: true, &#34;kernel_initializer&#34;: {&#34;class_name&#34;: &#34;GlorotUniform&#34;, &#34;config&#34;: {&#34;seed&#34;: null}}, &#34;bias_initializer&#34;: {&#34;class_name&#34;: &#34;Zeros&#34;, &#34;config&#34;: {}}, &#34;kernel_regularizer&#34;: null, &#34;bias_regularizer&#34;: null, &#34;activity_regularizer&#34;: null, &#34;kernel_constraint&#34;: null, &#34;bias_constraint&#34;: null}, &#34;name&#34;: &#34;regression_head_1&#34;, &#34;inbound_nodes&#34;: [[[&#34;dropout&#34;, 0, 0, {}]]]}], &#34;input_layers&#34;: [[&#34;input_1&#34;, 0, 0]], &#34;output_layers&#34;: [[&#34;regression_head_1&#34;, 0, 0]]}, &#34;keras_version&#34;: &#34;2.4.0&#34;, &#34;backend&#34;: &#34;tensorflow&#34;}&#39;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Regression) Task 4 - Train and Evaluate Models completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -16464,7 +16430,7 @@ Epoch 46/50
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Regression) Task 5 - Finalize Model and Present Analysis has begun on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -16475,10 +16441,10 @@ Epoch 46/50
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Apply the same data preparation steps to the test dataset</span>
@@ -16493,10 +16459,31 @@ Epoch 46/50
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>X_test.shape: (102, 13) y_test.shape: (102,)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_predictions</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -16509,10 +16496,33 @@ Epoch 46/50
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>7/7 [==============================] - 0s 2ms/step
+RMSE for the model is:  3.3187061765242585
+R2 for the model is:  0.8592670884102676
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Regression) Task 5 - Finalize Model and Present Analysis completed on &#39;</span><span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -16523,10 +16533,10 @@ Epoch 46/50
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Total time for the script:&#39;</span><span class="p">,(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeScript</span><span class="p">))</span>
@@ -16535,6 +16545,27 @@ Epoch 46/50
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Total time for the script: 0:07:50.072773
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>

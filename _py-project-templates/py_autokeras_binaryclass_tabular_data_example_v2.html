@@ -14453,9 +14453,8 @@ a.anchor-link {
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
-<span class="c1"># from sklearn.impute import SimpleImputer</span>
-<span class="c1"># from sklearn.feature_selection import RFE</span>
 <span class="c1"># from imblearn.pipeline import Pipeline</span>
 <span class="c1"># from imblearn.over_sampling import SMOTE</span>
 <span class="c1"># from imblearn.under_sampling import RandomUnderSampler</span>
@@ -17593,112 +17592,12 @@ Total number of columns in the dataframe: 60
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="3.c)-Feature-Selection">3.c) Feature Selection<a class="anchor-link" href="#3.c)-Feature-Selection">&#182;</a></h3>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Not applicable for this iteration of the project</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find collinear features (Block #1 of 3)</span>
-
-<span class="c1"># def findCorrelated(corrmat, cutoff = 0.75):    </span>
-
-<span class="c1"># ### search correlation matrix and identify pairs that if removed would reduce pair-wise correlations</span>
-<span class="c1"># # args:</span>
-<span class="c1">#     # corrmat: a correlation matrix</span>
-<span class="c1">#     # cutoff: pairwise absolute correlation cutoff</span>
-<span class="c1"># # returns:</span>
-<span class="c1">#     # variables to removed</span>
-
-<span class="c1">#     if(len(corrmat) != len(corrmat.columns)) : return &#39;Correlation matrix is not square&#39;</span>
-<span class="c1">#     averageCorr = corrmat.abs().mean(axis = 1)</span>
-
-<span class="c1">#     # set lower triangle and diagonal of correlation matrix to NA</span>
-<span class="c1">#     for row in range(0, len(corrmat)):</span>
-<span class="c1">#         for col in range(0, (row+1)):</span>
-<span class="c1">#             corrmat.iloc[row, col] = None</span>
-
-<span class="c1">#     # where a pairwise correlation is greater than the cutoff value, check whether mean abs.corr of a or b is greater and cut it</span>
-<span class="c1">#     to_delete = list()</span>
-<span class="c1">#     for col in range(0, len(corrmat.columns)):</span>
-<span class="c1">#         for row in range(0, len(corrmat)):</span>
-<span class="c1">#             if(abs(corrmat.iloc[row, col]) &gt; cutoff):</span>
-<span class="c1">#                 if(averageCorr.iloc[row] &gt; averageCorr.iloc[col]): to_delete.append(row)</span>
-<span class="c1">#                 else: to_delete.append(col)</span>
-
-<span class="c1">#     to_delete = list(set(to_delete))</span>
-<span class="c1">#     return to_delete</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find collinear features (Block #2 of 3)</span>
-
-<span class="c1"># By using the calculated correlation matrix, find the collinear features</span>
-<span class="c1"># collinear = findCorrelated(correlations, cutoff = 0.75)</span>
-<span class="c1"># print(&#39;Number of attributes to be removed:&#39;, len(collinear))</span>
-<span class="c1"># dropAttributes = X_train_df.columns[collinear]</span>
-<span class="c1"># print(&#39;Columns to be removed:&#39;)</span>
-<span class="c1"># print(dropAttributes)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find collinear features (Block #3 of 3)</span>
-
-<span class="c1"># Drop the highly collinear features</span>
-<span class="c1"># X_train_df.drop(labels=dropAttributes, axis=1, inplace=True)</span>
-<span class="c1"># X_test_df.drop(labels=dropAttributes, axis=1, inplace=True)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="3.d)-Display-the-Final-Datasets-for-Model-Building">3.d) Display the Final Datasets for Model-Building<a class="anchor-link" href="#3.d)-Display-the-Final-Datasets-for-Model-Building">&#182;</a></h3>
+<h3 id="3.c)-Display-the-Final-Datasets-for-Model-Building">3.c) Display the Final Datasets for Model-Building<a class="anchor-link" href="#3.c)-Display-the-Final-Datasets-for-Model-Building">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Finalize the training dataset for the modeling activities</span>
@@ -17736,7 +17635,7 @@ Total number of columns in the dataframe: 60
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Binary Classification) Task 3 - Pre-process Data completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -17755,7 +17654,7 @@ Total number of columns in the dataframe: 60
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Binary Classification) Task 4 - Train and Evaluate Models has begun on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -17796,27 +17695,62 @@ Total number of columns in the dataframe: 60
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Trial 97 Complete [00h 00m 08s]
-val_accuracy: 0.3333333432674408
+<pre>Trial 94 Complete [00h 00m 11s]
+val_accuracy: 1.0
 
 Best val_accuracy So Far: 1.0
-Total elapsed time: 00h 13m 24s
+Total elapsed time: 00h 13m 38s
 
-Search: Running Trial #98
+Search: Running Trial #95
 
 Hyperparameter      |Value     |Best Value So Far   
 structured_data_block_1/normalize|False     |False               
-structured_data_block_1/dense_block_1/num_layers|1         |2                   
-structured_data_block_1/dense_block_1/use_batchnorm|True      |False               
-structured_data_block_1/dense_block_1/dropout|0.5       |0                   
-structured_data_block_1/dense_block_1/units_0|128       |32                  
-structured_data_block_1/dense_block_1/units_1|256       |32                  
+structured_data_block_1/dense_block_1/num_layers|2         |2                   
+structured_data_block_1/dense_block_1/use_batchnorm|False     |False               
+structured_data_block_1/dense_block_1/dropout|0.0       |0                   
+structured_data_block_1/dense_block_1/units_0|32        |32                  
+structured_data_block_1/dense_block_1/units_1|32        |32                  
 classification_head_1/dropout|0         |0                   
 optimizer           |adam      |adam                
 learning_rate       |0.001     |0.001               
-structured_data_block_1/dense_block_1/units_2|64        |None                
+structured_data_block_1/dense_block_1/units_2|1024      |None                
 
 Epoch 1/50
+5/5 [==============================] - 1s 163ms/step - loss: 0.7663 - accuracy: 0.4875 - val_loss: 0.5840 - val_accuracy: 0.5000
+Epoch 2/50
+5/5 [==============================] - 0s 15ms/step - loss: 0.6927 - accuracy: 0.5125 - val_loss: 0.5743 - val_accuracy: 0.8333
+Epoch 3/50
+5/5 [==============================] - 0s 15ms/step - loss: 0.6388 - accuracy: 0.5688 - val_loss: 0.5678 - val_accuracy: 0.8333
+Epoch 4/50
+5/5 [==============================] - 0s 15ms/step - loss: 0.5971 - accuracy: 0.6375 - val_loss: 0.5595 - val_accuracy: 0.6667
+Epoch 5/50
+5/5 [==============================] - 0s 15ms/step - loss: 0.5636 - accuracy: 0.7250 - val_loss: 0.5445 - val_accuracy: 0.6667
+Epoch 6/50
+5/5 [==============================] - 0s 15ms/step - loss: 0.5349 - accuracy: 0.7812 - val_loss: 0.5172 - val_accuracy: 0.6667
+Epoch 7/50
+5/5 [==============================] - 0s 15ms/step - loss: 0.5082 - accuracy: 0.8125 - val_loss: 0.4867 - val_accuracy: 0.6667
+Epoch 8/50
+5/5 [==============================] - 0s 15ms/step - loss: 0.4826 - accuracy: 0.8250 - val_loss: 0.4537 - val_accuracy: 0.6667
+Epoch 9/50
+5/5 [==============================] - 0s 16ms/step - loss: 0.4575 - accuracy: 0.8438 - val_loss: 0.4185 - val_accuracy: 0.8333
+Epoch 10/50
+5/5 [==============================] - 0s 16ms/step - loss: 0.4330 - accuracy: 0.8687 - val_loss: 0.3884 - val_accuracy: 1.0000
+Epoch 11/50
+5/5 [==============================] - 0s 15ms/step - loss: 0.4093 - accuracy: 0.8750 - val_loss: 0.3629 - val_accuracy: 1.0000
+Epoch 12/50
+5/5 [==============================] - 0s 16ms/step - loss: 0.3864 - accuracy: 0.8813 - val_loss: 0.3403 - val_accuracy: 1.0000
+Epoch 13/50
+5/5 [==============================] - 0s 16ms/step - loss: 0.3643 - accuracy: 0.9000 - val_loss: 0.3195 - val_accuracy: 1.0000
+Epoch 14/50
+5/5 [==============================] - 0s 16ms/step - loss: 0.3430 - accuracy: 0.9125 - val_loss: 0.3003 - val_accuracy: 1.0000
+Epoch 15/50
+5/5 [==============================] - 0s 15ms/step - loss: 0.3229 - accuracy: 0.9125 - val_loss: 0.2831 - val_accuracy: 1.0000
+Epoch 16/50
+5/5 [==============================] - 0s 16ms/step - loss: 0.3039 - accuracy: 0.9125 - val_loss: 0.2668 - val_accuracy: 1.0000
+Epoch 17/50
+5/5 [==============================] - 0s 16ms/step - loss: 0.2861 - accuracy: 0.9312 - val_loss: 0.2514 - val_accuracy: 1.0000
+Epoch 18/50
+5/5 [==============================] - 0s 16ms/step - loss: 0.2692 - accuracy: 0.9375 - val_loss: 0.2372 - val_accuracy: 1.0000
 </pre>
 </div>
 </div>
