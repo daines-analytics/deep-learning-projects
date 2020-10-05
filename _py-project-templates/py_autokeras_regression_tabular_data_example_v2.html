@@ -16169,8 +16169,9 @@ Total number of columns in the dataframe: 13
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Perform the model search</span>
 <span class="n">startTimeModule</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-<span class="n">search</span> <span class="o">=</span> <span class="n">StructuredDataRegressor</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">default_loss</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">default_metrics</span><span class="p">,</span> <span class="n">max_trials</span><span class="o">=</span><span class="n">default_trials</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seedNum</span><span class="p">)</span>
-<span class="n">search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">default_epochs</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="n">val_set_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">auto_model</span> <span class="o">=</span> <span class="n">StructuredDataRegressor</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">default_loss</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">default_metrics</span><span class="p">,</span> <span class="n">max_trials</span><span class="o">=</span><span class="n">default_trials</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seedNum</span><span class="p">)</span>
+<span class="n">auto_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">default_epochs</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="n">val_set_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">final_model</span> <span class="o">=</span> <span class="n">auto_model</span><span class="o">.</span><span class="n">export_model</span><span class="p">()</span>
 <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Model training time:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeModule</span><span class="p">))</span>
 </pre></div>
 
@@ -16195,14 +16196,14 @@ Total number of columns in the dataframe: 13
 val_loss: 13.989147186279297
 
 Best val_loss So Far: 7.047227382659912
-Total elapsed time: 00h 07m 21s
+Total elapsed time: 00h 07m 05s
 INFO:tensorflow:Oracle triggered exit
 Epoch 1/50
 26/26 [==============================] - 0s 3ms/step - loss: 222.8911 - root_mean_squared_error: 13.9233
 Epoch 2/50
-26/26 [==============================] - 0s 2ms/step - loss: 51.6853 - root_mean_squared_error: 7.1892
+26/26 [==============================] - 0s 3ms/step - loss: 51.6853 - root_mean_squared_error: 7.1892
 Epoch 3/50
-26/26 [==============================] - 0s 2ms/step - loss: 45.4550 - root_mean_squared_error: 6.7420
+26/26 [==============================] - 0s 3ms/step - loss: 45.4550 - root_mean_squared_error: 6.7420
 Epoch 4/50
 26/26 [==============================] - 0s 3ms/step - loss: 45.7526 - root_mean_squared_error: 6.7641
 Epoch 5/50
@@ -16214,7 +16215,7 @@ Epoch 7/50
 Epoch 8/50
 26/26 [==============================] - 0s 3ms/step - loss: 34.6411 - root_mean_squared_error: 5.8857
 Epoch 9/50
-26/26 [==============================] - 0s 3ms/step - loss: 35.9733 - root_mean_squared_error: 5.9978
+26/26 [==============================] - 0s 2ms/step - loss: 35.9733 - root_mean_squared_error: 5.9978
 Epoch 10/50
 26/26 [==============================] - 0s 3ms/step - loss: 49.2359 - root_mean_squared_error: 7.0168
 Epoch 11/50
@@ -16232,27 +16233,27 @@ Epoch 16/50
 Epoch 17/50
 26/26 [==============================] - 0s 3ms/step - loss: 37.2678 - root_mean_squared_error: 6.1047
 Epoch 18/50
-26/26 [==============================] - 0s 3ms/step - loss: 38.7229 - root_mean_squared_error: 6.2228
+26/26 [==============================] - 0s 2ms/step - loss: 38.7229 - root_mean_squared_error: 6.2228
 Epoch 19/50
 26/26 [==============================] - 0s 3ms/step - loss: 32.9548 - root_mean_squared_error: 5.7406
 Epoch 20/50
 26/26 [==============================] - 0s 3ms/step - loss: 30.9834 - root_mean_squared_error: 5.5663
 Epoch 21/50
-26/26 [==============================] - 0s 3ms/step - loss: 35.5938 - root_mean_squared_error: 5.9661
+26/26 [==============================] - 0s 2ms/step - loss: 35.5938 - root_mean_squared_error: 5.9661
 Epoch 22/50
-26/26 [==============================] - 0s 3ms/step - loss: 29.6771 - root_mean_squared_error: 5.4477
+26/26 [==============================] - 0s 2ms/step - loss: 29.6771 - root_mean_squared_error: 5.4477
 Epoch 23/50
 26/26 [==============================] - 0s 3ms/step - loss: 31.0790 - root_mean_squared_error: 5.5749
 Epoch 24/50
 26/26 [==============================] - 0s 3ms/step - loss: 29.6210 - root_mean_squared_error: 5.4425
 Epoch 25/50
-26/26 [==============================] - 0s 3ms/step - loss: 32.2743 - root_mean_squared_error: 5.6810
+26/26 [==============================] - 0s 2ms/step - loss: 32.2743 - root_mean_squared_error: 5.6810
 Epoch 26/50
-26/26 [==============================] - 0s 3ms/step - loss: 27.6597 - root_mean_squared_error: 5.2593
+26/26 [==============================] - 0s 2ms/step - loss: 27.6597 - root_mean_squared_error: 5.2593
 Epoch 27/50
 26/26 [==============================] - 0s 3ms/step - loss: 34.1100 - root_mean_squared_error: 5.8404
 Epoch 28/50
-26/26 [==============================] - 0s 3ms/step - loss: 24.5714 - root_mean_squared_error: 4.9570
+26/26 [==============================] - 0s 2ms/step - loss: 24.5714 - root_mean_squared_error: 4.9570
 Epoch 29/50
 26/26 [==============================] - 0s 3ms/step - loss: 27.9884 - root_mean_squared_error: 5.2904
 Epoch 30/50
@@ -16264,7 +16265,7 @@ Epoch 32/50
 Epoch 33/50
 26/26 [==============================] - 0s 3ms/step - loss: 28.8857 - root_mean_squared_error: 5.3745
 Epoch 34/50
-26/26 [==============================] - 0s 3ms/step - loss: 26.7846 - root_mean_squared_error: 5.1754
+26/26 [==============================] - 0s 2ms/step - loss: 26.7846 - root_mean_squared_error: 5.1754
 Epoch 35/50
 26/26 [==============================] - 0s 3ms/step - loss: 27.9583 - root_mean_squared_error: 5.2876
 Epoch 36/50
@@ -16272,13 +16273,13 @@ Epoch 36/50
 Epoch 37/50
 26/26 [==============================] - 0s 3ms/step - loss: 27.7754 - root_mean_squared_error: 5.2702
 Epoch 38/50
-26/26 [==============================] - 0s 3ms/step - loss: 24.6725 - root_mean_squared_error: 4.9671
+26/26 [==============================] - 0s 2ms/step - loss: 24.6725 - root_mean_squared_error: 4.9671
 Epoch 39/50
-26/26 [==============================] - 0s 2ms/step - loss: 24.1101 - root_mean_squared_error: 4.9102
+26/26 [==============================] - 0s 3ms/step - loss: 24.1101 - root_mean_squared_error: 4.9102
 Epoch 40/50
 26/26 [==============================] - 0s 3ms/step - loss: 30.3082 - root_mean_squared_error: 5.5053
 Epoch 41/50
-26/26 [==============================] - 0s 2ms/step - loss: 22.7550 - root_mean_squared_error: 4.7702
+26/26 [==============================] - 0s 3ms/step - loss: 22.7550 - root_mean_squared_error: 4.7702
 Epoch 42/50
 26/26 [==============================] - 0s 3ms/step - loss: 27.6404 - root_mean_squared_error: 5.2574
 Epoch 43/50
@@ -16286,18 +16287,18 @@ Epoch 43/50
 Epoch 44/50
 26/26 [==============================] - 0s 3ms/step - loss: 33.3498 - root_mean_squared_error: 5.7749
 Epoch 45/50
-26/26 [==============================] - 0s 3ms/step - loss: 26.8328 - root_mean_squared_error: 5.1800
+26/26 [==============================] - 0s 2ms/step - loss: 26.8328 - root_mean_squared_error: 5.1800
 Epoch 46/50
-26/26 [==============================] - 0s 3ms/step - loss: 24.4263 - root_mean_squared_error: 4.9423
+26/26 [==============================] - 0s 2ms/step - loss: 24.4263 - root_mean_squared_error: 4.9423
 Epoch 47/50
-26/26 [==============================] - 0s 5ms/step - loss: 23.3351 - root_mean_squared_error: 4.8306
+26/26 [==============================] - 0s 2ms/step - loss: 23.3351 - root_mean_squared_error: 4.8306
 Epoch 48/50
-26/26 [==============================] - 0s 3ms/step - loss: 23.0873 - root_mean_squared_error: 4.8049
+26/26 [==============================] - 0s 2ms/step - loss: 23.0873 - root_mean_squared_error: 4.8049
 Epoch 49/50
 26/26 [==============================] - 0s 3ms/step - loss: 22.3161 - root_mean_squared_error: 4.7240
 Epoch 50/50
-26/26 [==============================] - 0s 3ms/step - loss: 22.8012 - root_mean_squared_error: 4.7751
-Model training time: 0:07:28.978602
+26/26 [==============================] - 0s 2ms/step - loss: 22.8012 - root_mean_squared_error: 4.7751
+Model training time: 0:07:12.867761
 </pre>
 </div>
 </div>
@@ -16312,9 +16313,8 @@ Model training time: 0:07:28.978602
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Summarize the best performing model</span>
-<span class="n">auto_model</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">export_model</span><span class="p">()</span>
-<span class="n">auto_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Summarize the final model</span>
+<span class="n">final_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -16376,8 +16376,8 @@ _________________________________________________________________
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display details about the chosen model</span>
-<span class="n">auto_model</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the configuration details of the final model</span>
+<span class="n">final_model</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -16486,7 +16486,7 @@ _________________________________________________________________
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_predictions</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_predictions</span> <span class="o">=</span> <span class="n">auto_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RMSE for the model is: &#39;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">)))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R2 for the model is: &#39;</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">))</span>
 </pre></div>
@@ -16559,7 +16559,7 @@ R2 for the model is:  0.8592670884102676
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Total time for the script: 0:07:50.072773
+<pre>Total time for the script: 0:07:32.331008
 </pre>
 </div>
 </div>

@@ -14451,7 +14451,6 @@ a.anchor-link {
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
@@ -17668,13 +17667,14 @@ Total number of columns in the dataframe: 60
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Perform the model search</span>
 <span class="n">startTimeModule</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-<span class="n">search</span> <span class="o">=</span> <span class="n">StructuredDataClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">default_loss</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">default_metrics</span><span class="p">,</span> <span class="n">max_trials</span><span class="o">=</span><span class="n">default_trials</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seedNum</span><span class="p">)</span>
-<span class="n">search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">default_epochs</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="n">val_set_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">auto_model</span> <span class="o">=</span> <span class="n">StructuredDataClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">default_loss</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">default_metrics</span><span class="p">,</span> <span class="n">max_trials</span><span class="o">=</span><span class="n">default_trials</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seedNum</span><span class="p">)</span>
+<span class="n">auto_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">default_epochs</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="n">val_set_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">final_model</span> <span class="o">=</span> <span class="n">auto_model</span><span class="o">.</span><span class="n">export_model</span><span class="p">()</span>
 <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Model training time:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeModule</span><span class="p">))</span>
 </pre></div>
 
@@ -17695,62 +17695,113 @@ Total number of columns in the dataframe: 60
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Trial 94 Complete [00h 00m 11s]
-val_accuracy: 1.0
+<pre>Trial 100 Complete [00h 00m 06s]
+val_accuracy: 0.6666666865348816
 
 Best val_accuracy So Far: 1.0
-Total elapsed time: 00h 13m 38s
-
-Search: Running Trial #95
-
-Hyperparameter      |Value     |Best Value So Far   
-structured_data_block_1/normalize|False     |False               
-structured_data_block_1/dense_block_1/num_layers|2         |2                   
-structured_data_block_1/dense_block_1/use_batchnorm|False     |False               
-structured_data_block_1/dense_block_1/dropout|0.0       |0                   
-structured_data_block_1/dense_block_1/units_0|32        |32                  
-structured_data_block_1/dense_block_1/units_1|32        |32                  
-classification_head_1/dropout|0         |0                   
-optimizer           |adam      |adam                
-learning_rate       |0.001     |0.001               
-structured_data_block_1/dense_block_1/units_2|1024      |None                
-
+Total elapsed time: 00h 13m 55s
+INFO:tensorflow:Oracle triggered exit
 Epoch 1/50
-5/5 [==============================] - 1s 163ms/step - loss: 0.7663 - accuracy: 0.4875 - val_loss: 0.5840 - val_accuracy: 0.5000
+6/6 [==============================] - 0s 4ms/step - loss: 0.6932 - accuracy: 0.5783
 Epoch 2/50
-5/5 [==============================] - 0s 15ms/step - loss: 0.6927 - accuracy: 0.5125 - val_loss: 0.5743 - val_accuracy: 0.8333
+6/6 [==============================] - 0s 4ms/step - loss: 0.6099 - accuracy: 0.6807
 Epoch 3/50
-5/5 [==============================] - 0s 15ms/step - loss: 0.6388 - accuracy: 0.5688 - val_loss: 0.5678 - val_accuracy: 0.8333
+6/6 [==============================] - 0s 4ms/step - loss: 0.5516 - accuracy: 0.7590
 Epoch 4/50
-5/5 [==============================] - 0s 15ms/step - loss: 0.5971 - accuracy: 0.6375 - val_loss: 0.5595 - val_accuracy: 0.6667
+6/6 [==============================] - 0s 4ms/step - loss: 0.5063 - accuracy: 0.8193
 Epoch 5/50
-5/5 [==============================] - 0s 15ms/step - loss: 0.5636 - accuracy: 0.7250 - val_loss: 0.5445 - val_accuracy: 0.6667
+6/6 [==============================] - 0s 4ms/step - loss: 0.4713 - accuracy: 0.8193
 Epoch 6/50
-5/5 [==============================] - 0s 15ms/step - loss: 0.5349 - accuracy: 0.7812 - val_loss: 0.5172 - val_accuracy: 0.6667
+6/6 [==============================] - 0s 4ms/step - loss: 0.4431 - accuracy: 0.8313
 Epoch 7/50
-5/5 [==============================] - 0s 15ms/step - loss: 0.5082 - accuracy: 0.8125 - val_loss: 0.4867 - val_accuracy: 0.6667
+6/6 [==============================] - 0s 4ms/step - loss: 0.4180 - accuracy: 0.8434
 Epoch 8/50
-5/5 [==============================] - 0s 15ms/step - loss: 0.4826 - accuracy: 0.8250 - val_loss: 0.4537 - val_accuracy: 0.6667
+6/6 [==============================] - 0s 4ms/step - loss: 0.3947 - accuracy: 0.8554
 Epoch 9/50
-5/5 [==============================] - 0s 16ms/step - loss: 0.4575 - accuracy: 0.8438 - val_loss: 0.4185 - val_accuracy: 0.8333
+6/6 [==============================] - 0s 4ms/step - loss: 0.3729 - accuracy: 0.8554
 Epoch 10/50
-5/5 [==============================] - 0s 16ms/step - loss: 0.4330 - accuracy: 0.8687 - val_loss: 0.3884 - val_accuracy: 1.0000
+6/6 [==============================] - 0s 4ms/step - loss: 0.3527 - accuracy: 0.8614
 Epoch 11/50
-5/5 [==============================] - 0s 15ms/step - loss: 0.4093 - accuracy: 0.8750 - val_loss: 0.3629 - val_accuracy: 1.0000
+6/6 [==============================] - 0s 4ms/step - loss: 0.3333 - accuracy: 0.8614
 Epoch 12/50
-5/5 [==============================] - 0s 16ms/step - loss: 0.3864 - accuracy: 0.8813 - val_loss: 0.3403 - val_accuracy: 1.0000
+6/6 [==============================] - 0s 4ms/step - loss: 0.3143 - accuracy: 0.8675
 Epoch 13/50
-5/5 [==============================] - 0s 16ms/step - loss: 0.3643 - accuracy: 0.9000 - val_loss: 0.3195 - val_accuracy: 1.0000
+6/6 [==============================] - 0s 4ms/step - loss: 0.2956 - accuracy: 0.8855
 Epoch 14/50
-5/5 [==============================] - 0s 16ms/step - loss: 0.3430 - accuracy: 0.9125 - val_loss: 0.3003 - val_accuracy: 1.0000
+6/6 [==============================] - 0s 4ms/step - loss: 0.2777 - accuracy: 0.8976
 Epoch 15/50
-5/5 [==============================] - 0s 15ms/step - loss: 0.3229 - accuracy: 0.9125 - val_loss: 0.2831 - val_accuracy: 1.0000
+6/6 [==============================] - 0s 4ms/step - loss: 0.2608 - accuracy: 0.9217
 Epoch 16/50
-5/5 [==============================] - 0s 16ms/step - loss: 0.3039 - accuracy: 0.9125 - val_loss: 0.2668 - val_accuracy: 1.0000
+6/6 [==============================] - 0s 4ms/step - loss: 0.2447 - accuracy: 0.9217
 Epoch 17/50
-5/5 [==============================] - 0s 16ms/step - loss: 0.2861 - accuracy: 0.9312 - val_loss: 0.2514 - val_accuracy: 1.0000
+6/6 [==============================] - 0s 4ms/step - loss: 0.2291 - accuracy: 0.9277
 Epoch 18/50
-5/5 [==============================] - 0s 16ms/step - loss: 0.2692 - accuracy: 0.9375 - val_loss: 0.2372 - val_accuracy: 1.0000
+6/6 [==============================] - 0s 4ms/step - loss: 0.2136 - accuracy: 0.9337
+Epoch 19/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.1988 - accuracy: 0.9398
+Epoch 20/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.1847 - accuracy: 0.9518
+Epoch 21/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.1714 - accuracy: 0.9578
+Epoch 22/50
+6/6 [==============================] - 0s 3ms/step - loss: 0.1587 - accuracy: 0.9699
+Epoch 23/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.1470 - accuracy: 0.9759
+Epoch 24/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.1360 - accuracy: 0.9759
+Epoch 25/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.1258 - accuracy: 0.9819
+Epoch 26/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.1161 - accuracy: 0.9880
+Epoch 27/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.1072 - accuracy: 0.9940
+Epoch 28/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0990 - accuracy: 0.9940
+Epoch 29/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0917 - accuracy: 0.9940
+Epoch 30/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0849 - accuracy: 0.9940
+Epoch 31/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0786 - accuracy: 0.9940
+Epoch 32/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0729 - accuracy: 0.9940
+Epoch 33/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0677 - accuracy: 0.9940
+Epoch 34/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0629 - accuracy: 0.9940
+Epoch 35/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0586 - accuracy: 0.9940
+Epoch 36/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0545 - accuracy: 0.9940
+Epoch 37/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0508 - accuracy: 1.0000
+Epoch 38/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0474 - accuracy: 1.0000
+Epoch 39/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0442 - accuracy: 1.0000
+Epoch 40/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0412 - accuracy: 1.0000
+Epoch 41/50
+6/6 [==============================] - 0s 3ms/step - loss: 0.0386 - accuracy: 1.0000
+Epoch 42/50
+6/6 [==============================] - 0s 3ms/step - loss: 0.0361 - accuracy: 1.0000
+Epoch 43/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0338 - accuracy: 1.0000
+Epoch 44/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0317 - accuracy: 1.0000
+Epoch 45/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0297 - accuracy: 1.0000
+Epoch 46/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0278 - accuracy: 1.0000
+Epoch 47/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0261 - accuracy: 1.0000
+Epoch 48/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0246 - accuracy: 1.0000
+Epoch 49/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0231 - accuracy: 1.0000
+Epoch 50/50
+6/6 [==============================] - 0s 4ms/step - loss: 0.0217 - accuracy: 1.0000
+Model training time: 0:14:02.628125
 </pre>
 </div>
 </div>
@@ -17759,15 +17810,14 @@ Epoch 18/50
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Summarize the best performing model</span>
-<span class="n">auto_model</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">export_model</span><span class="p">()</span>
-<span class="n">auto_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Summarize the final model</span>
+<span class="n">final_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -17775,14 +17825,58 @@ Epoch 18/50
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Model: &#34;functional_1&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_1 (InputLayer)         [(None, 60)]              0         
+_________________________________________________________________
+multi_category_encoding (Mul (None, 60)                0         
+_________________________________________________________________
+dense (Dense)                (None, 32)                1952      
+_________________________________________________________________
+re_lu (ReLU)                 (None, 32)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 32)                1056      
+_________________________________________________________________
+re_lu_1 (ReLU)               (None, 32)                0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 1)                 33        
+_________________________________________________________________
+classification_head_1 (Activ (None, 1)                 0         
+=================================================================
+Total params: 3,041
+Trainable params: 3,041
+Non-trainable params: 0
+_________________________________________________________________
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display details about the chosen model</span>
-<span class="n">auto_model</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the configuration details of the final model</span>
+<span class="n">final_model</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -17790,10 +17884,33 @@ Epoch 18/50
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[46]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&#39;{&#34;class_name&#34;: &#34;Functional&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;functional_1&#34;, &#34;layers&#34;: [{&#34;class_name&#34;: &#34;InputLayer&#34;, &#34;config&#34;: {&#34;batch_input_shape&#34;: [null, 60], &#34;dtype&#34;: &#34;string&#34;, &#34;sparse&#34;: false, &#34;ragged&#34;: false, &#34;name&#34;: &#34;input_1&#34;}, &#34;name&#34;: &#34;input_1&#34;, &#34;inbound_nodes&#34;: []}, {&#34;class_name&#34;: &#34;Custom&gt;MultiCategoryEncoding&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;multi_category_encoding&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;encoding&#34;: [&#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;, &#34;none&#34;]}, &#34;name&#34;: &#34;multi_category_encoding&#34;, &#34;inbound_nodes&#34;: [[[&#34;input_1&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;Dense&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;dense&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;units&#34;: 32, &#34;activation&#34;: &#34;linear&#34;, &#34;use_bias&#34;: true, &#34;kernel_initializer&#34;: {&#34;class_name&#34;: &#34;GlorotUniform&#34;, &#34;config&#34;: {&#34;seed&#34;: null}}, &#34;bias_initializer&#34;: {&#34;class_name&#34;: &#34;Zeros&#34;, &#34;config&#34;: {}}, &#34;kernel_regularizer&#34;: null, &#34;bias_regularizer&#34;: null, &#34;activity_regularizer&#34;: null, &#34;kernel_constraint&#34;: null, &#34;bias_constraint&#34;: null}, &#34;name&#34;: &#34;dense&#34;, &#34;inbound_nodes&#34;: [[[&#34;multi_category_encoding&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;ReLU&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;re_lu&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;max_value&#34;: null, &#34;negative_slope&#34;: 0.0, &#34;threshold&#34;: 0.0}, &#34;name&#34;: &#34;re_lu&#34;, &#34;inbound_nodes&#34;: [[[&#34;dense&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;Dense&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;dense_1&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;units&#34;: 32, &#34;activation&#34;: &#34;linear&#34;, &#34;use_bias&#34;: true, &#34;kernel_initializer&#34;: {&#34;class_name&#34;: &#34;GlorotUniform&#34;, &#34;config&#34;: {&#34;seed&#34;: null}}, &#34;bias_initializer&#34;: {&#34;class_name&#34;: &#34;Zeros&#34;, &#34;config&#34;: {}}, &#34;kernel_regularizer&#34;: null, &#34;bias_regularizer&#34;: null, &#34;activity_regularizer&#34;: null, &#34;kernel_constraint&#34;: null, &#34;bias_constraint&#34;: null}, &#34;name&#34;: &#34;dense_1&#34;, &#34;inbound_nodes&#34;: [[[&#34;re_lu&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;ReLU&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;re_lu_1&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;max_value&#34;: null, &#34;negative_slope&#34;: 0.0, &#34;threshold&#34;: 0.0}, &#34;name&#34;: &#34;re_lu_1&#34;, &#34;inbound_nodes&#34;: [[[&#34;dense_1&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;Dense&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;dense_2&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;units&#34;: 1, &#34;activation&#34;: &#34;linear&#34;, &#34;use_bias&#34;: true, &#34;kernel_initializer&#34;: {&#34;class_name&#34;: &#34;GlorotUniform&#34;, &#34;config&#34;: {&#34;seed&#34;: null}}, &#34;bias_initializer&#34;: {&#34;class_name&#34;: &#34;Zeros&#34;, &#34;config&#34;: {}}, &#34;kernel_regularizer&#34;: null, &#34;bias_regularizer&#34;: null, &#34;activity_regularizer&#34;: null, &#34;kernel_constraint&#34;: null, &#34;bias_constraint&#34;: null}, &#34;name&#34;: &#34;dense_2&#34;, &#34;inbound_nodes&#34;: [[[&#34;re_lu_1&#34;, 0, 0, {}]]]}, {&#34;class_name&#34;: &#34;Activation&#34;, &#34;config&#34;: {&#34;name&#34;: &#34;classification_head_1&#34;, &#34;trainable&#34;: true, &#34;dtype&#34;: &#34;float32&#34;, &#34;activation&#34;: &#34;sigmoid&#34;}, &#34;name&#34;: &#34;classification_head_1&#34;, &#34;inbound_nodes&#34;: [[[&#34;dense_2&#34;, 0, 0, {}]]]}], &#34;input_layers&#34;: [[&#34;input_1&#34;, 0, 0]], &#34;output_layers&#34;: [[&#34;classification_head_1&#34;, 0, 0]]}, &#34;keras_version&#34;: &#34;2.4.0&#34;, &#34;backend&#34;: &#34;tensorflow&#34;}&#39;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Binary Classification) Task 4 - Train and Evaluate Models completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -17812,7 +17929,7 @@ Epoch 18/50
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Binary Classification) Task 5 - Finalize Model and Present Analysis has begun on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -17823,10 +17940,10 @@ Epoch 18/50
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Apply the same data preparation steps to the test dataset</span>
@@ -17841,15 +17958,35 @@ Epoch 18/50
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>X_test.shape: (42, 60) y_test.shape: (42,)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_predictions</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_predictions</span> <span class="o">=</span> <span class="n">auto_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">default_batch</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy Score:&#39;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ROC/AUC Score:&#39;</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">))</span>
 </pre></div>
@@ -17859,10 +17996,43 @@ Epoch 18/50
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>2/2 [==============================] - 0s 2ms/step
+Accuracy Score: 0.8333333333333334
+[[20  2]
+ [ 5 15]]
+              precision    recall  f1-score   support
+
+           0       0.80      0.91      0.85        22
+           1       0.88      0.75      0.81        20
+
+    accuracy                           0.83        42
+   macro avg       0.84      0.83      0.83        42
+weighted avg       0.84      0.83      0.83        42
+
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">notifyStatus</span><span class="p">:</span> <span class="n">status_notify</span><span class="p">(</span><span class="s1">&#39;(AutoKeras Binary Classification) Task 5 - Finalize Model and Present Analysis completed on &#39;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A %B </span><span class="si">%d</span><span class="s1">, %Y %I:%M:%S %p&#39;</span><span class="p">))</span>
@@ -17873,10 +18043,10 @@ Epoch 18/50
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[52]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Total time for the script:&#39;</span><span class="p">,(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">startTimeScript</span><span class="p">))</span>
@@ -17885,6 +18055,27 @@ Epoch 18/50
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Total time for the script: 0:14:52.803150
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
