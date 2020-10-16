@@ -15064,56 +15064,6 @@ Number of image batches per epoch of modeling: 17
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># # Define the baseline model for benchmarking</span>
-<span class="c1"># def create_nn_model(conv1_filters=32, conv2_filters=64, conv3_filters=128, conv4_filters=256, conv5_filters=256,</span>
-<span class="c1">#                     conv1_dropout=0, conv2_dropout=0, conv3_dropout=0, conv4_dropout=0, conv5_dropout=0,</span>
-<span class="c1">#                     dense_nodes=512, dense_dropout=0, opt_param=default_optimizer, init_param=default_kernel_init):</span>
-<span class="c1">#     nn_model = keras.Sequential([</span>
-<span class="c1">#         # This is the first convolution</span>
-<span class="c1">#         keras.layers.Conv2D(conv1_filters, (3,3), padding=&#39;same&#39;, activation=&#39;relu&#39;, kernel_initializer=init_param, input_shape=default_image_shape),</span>
-<span class="c1">#         keras.layers.MaxPooling2D((2,2), strides=(2,2)),</span>
-<span class="c1">#         # keras.layers.Dropout(conv1_dropout),</span>
-<span class="c1">#         # This is the second convolution</span>
-<span class="c1">#         keras.layers.Conv2D(conv2_filters, (3,3), padding=&#39;same&#39;, activation=&#39;relu&#39;, kernel_initializer=init_param),</span>
-<span class="c1">#         keras.layers.MaxPooling2D((2,2), strides=(2,2)),</span>
-<span class="c1">#         # keras.layers.Dropout(conv2_dropout),</span>
-<span class="c1">#         # This is the third convolution</span>
-<span class="c1">#         keras.layers.Conv2D(conv3_filters, (3,3), padding=&#39;same&#39;, activation=&#39;relu&#39;, kernel_initializer=init_param),</span>
-<span class="c1">#         keras.layers.Conv2D(conv3_filters, (3,3), padding=&#39;same&#39;, activation=&#39;relu&#39;, kernel_initializer=init_param),</span>
-<span class="c1">#         keras.layers.MaxPooling2D((2,2), strides=(2,2)),</span>
-<span class="c1">#         # keras.layers.Dropout(conv3_dropout),</span>
-<span class="c1">#         # This is the fourth convolution</span>
-<span class="c1">#         keras.layers.Conv2D(conv4_filters, (3,3), padding=&#39;same&#39;, activation=&#39;relu&#39;, kernel_initializer=init_param),</span>
-<span class="c1">#         keras.layers.Conv2D(conv3_filters, (3,3), padding=&#39;same&#39;, activation=&#39;relu&#39;, kernel_initializer=init_param),</span>
-<span class="c1">#         keras.layers.MaxPooling2D((2,2), strides=(2,2)),</span>
-<span class="c1">#         # keras.layers.Dropout(conv4_dropout),</span>
-<span class="c1">#         # This is the fifth convolution</span>
-<span class="c1">#         keras.layers.Conv2D(conv5_filters, (3,3), padding=&#39;same&#39;, activation=&#39;relu&#39;, kernel_initializer=init_param),</span>
-<span class="c1">#         keras.layers.Conv2D(conv3_filters, (3,3), padding=&#39;same&#39;, activation=&#39;relu&#39;, kernel_initializer=init_param),</span>
-<span class="c1">#         keras.layers.MaxPooling2D((2,2), strides=(2,2)),</span>
-<span class="c1">#         # keras.layers.Dropout(conv5_dropout),</span>
-<span class="c1">#         # Flatten the results to feed into a DNN</span>
-<span class="c1">#         keras.layers.Flatten(),</span>
-<span class="c1">#         # keras.layers.Dropout(dense_dropout),</span>
-<span class="c1">#         # 512 neuron hidden layer</span>
-<span class="c1">#         keras.layers.Dense(dense_nodes, activation=&#39;relu&#39;, kernel_initializer=init_param),</span>
-<span class="c1">#         keras.layers.Dense(1, activation=&#39;sigmoid&#39;, kernel_initializer=init_param)</span>
-<span class="c1">#     ])</span>
-<span class="c1">#     nn_model.compile(loss=default_loss, optimizer=opt_param, metrics=default_metrics)</span>
-<span class="c1">#     return nn_model</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
